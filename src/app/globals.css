@@ -1,4 +1,4 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -127,4 +127,502 @@
   html {
     @apply font-sans;
   }
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+
+/* =========================================================
+   TAILWIND THEME
+   ========================================================= */
+
+@theme inline {
+  /* ─────────────────────────────────────────────
+     Core
+     ───────────────────────────────────────────── */
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+
+
+  /* ─────────────────────────────────────────────
+     Components
+     ───────────────────────────────────────────── */
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+
+  /* ─────────────────────────────────────────────
+     Shadcn Semantic Colors
+     ───────────────────────────────────────────── */
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+
+
+  /* ─────────────────────────────────────────────
+     Form / Borders
+     ───────────────────────────────────────────── */
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+
+  /* ─────────────────────────────────────────────
+     Charts
+     ───────────────────────────────────────────── */
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+
+  /* ─────────────────────────────────────────────
+     Status Colors
+     ───────────────────────────────────────────── */
+
+  --color-status-draft: var(--status-draft);
+  --color-status-pending: var(--status-pending);
+  --color-status-submitted: var(--status-submitted);
+  --color-status-partially-paid: var(--status-partially-paid);
+  --color-status-approved: var(--status-approved);
+  --color-status-published: var(--status-published);
+  --color-status-success: var(--status-success);
+  --color-status-paid: var(--status-paid);
+  --color-status-active: var(--status-active);
+  --color-status-rejected: var(--status-rejected);
+  --color-status-failed: var(--status-failed);
+  --color-status-cancelled: var(--status-cancelled);
+  --color-status-overdue: var(--status-overdue);
+  --color-status-suspended: var(--status-suspended);
+
+
+  /* ─────────────────────────────────────────────
+     Sidebar
+     ───────────────────────────────────────────── */
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+
+  /* ─────────────────────────────────────────────
+     Radius
+     ───────────────────────────────────────────── */
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
+
+
+/* =========================================================
+   LIGHT MODE
+   ========================================================= */
+
+:root {
+
+  /* =======================================================
+     BRAND COLORS
+     ======================================================= */
+
+  --brand-primary: #1e3a8a;
+  --brand-primary-dark: #152a63;
+  --brand-accent: #f59e0b;
+  --brand-neutral: #e2e8f0;
+
+
+  /* =======================================================
+     BACKGROUND / FOREGROUND
+     ======================================================= */
+
+  --background: #ffffff;
+  --foreground: #0f172a;
+
+
+  /* =======================================================
+     CARD
+     ======================================================= */
+
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+
+
+  /* =======================================================
+     POPOVER
+     ======================================================= */
+
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+
+
+  /* =======================================================
+     PRIMARY
+     Brand Primary → #1E3A8A
+     ======================================================= */
+
+  --primary: var(--brand-primary);
+  --primary-foreground: #ffffff;
+
+
+  /* =======================================================
+     SECONDARY
+     ======================================================= */
+
+  --secondary: #f1f5f9;
+  --secondary-foreground: #1e293b;
+
+
+  /* =======================================================
+     MUTED
+     ======================================================= */
+
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+
+
+  /* =======================================================
+     ACCENT
+     Brand Accent → #F59E0B
+     ======================================================= */
+
+  --accent: var(--brand-accent);
+  --accent-foreground: #422006;
+
+
+  /* =======================================================
+     DESTRUCTIVE
+     Independent from brand
+     ======================================================= */
+
+  --destructive: #dc2626;
+
+
+  /* =======================================================
+     BORDER / INPUT / RING
+     ======================================================= */
+
+  --border: var(--brand-neutral);
+  --input: #cbd5e1;
+  --ring: var(--brand-primary);
+
+
+  /* =======================================================
+     CHART COLORS
+     Independent from brand + status colors
+     ======================================================= */
+
+  --chart-1: #2563eb;
+  --chart-2: #7c3aed;
+  --chart-3: #0891b2;
+  --chart-4: #ea580c;
+  --chart-5: #16a34a;
+
+
+  /* =======================================================
+     STATUS COLORS
+     ======================================================= */
+
+  /* DRAFT — Slate */
+  --status-draft: #64748b;
+
+  /* PENDING — Amber */
+  --status-pending: #d97706;
+
+  /* SUBMITTED — Blue */
+  --status-submitted: #2563eb;
+
+  /* PARTIALLY_PAID — Orange */
+  --status-partially-paid: #ea580c;
+
+  /* APPROVED — Green */
+  --status-approved: #16a34a;
+
+  /* PUBLISHED — Green */
+  --status-published: #16a34a;
+
+  /* SUCCESS — Green */
+  --status-success: #16a34a;
+
+  /* PAID — Green */
+  --status-paid: #16a34a;
+
+  /* ACTIVE — Emerald */
+  --status-active: #059669;
+
+  /* REJECTED — Red */
+  --status-rejected: #dc2626;
+
+  /* FAILED — Red */
+  --status-failed: #dc2626;
+
+  /* CANCELLED — Gray */
+  --status-cancelled: #6b7280;
+
+  /* OVERDUE — Rose */
+  --status-overdue: #e11d48;
+
+  /* SUSPENDED — Orange/Red */
+  --status-suspended: #ea580c;
+
+
+  /* =======================================================
+     SIDEBAR
+     ======================================================= */
+
+  --sidebar: #f8fafc;
+  --sidebar-foreground: #0f172a;
+
+  --sidebar-primary: var(--brand-primary);
+  --sidebar-primary-foreground: #ffffff;
+
+  --sidebar-accent: #e2e8f0;
+  --sidebar-accent-foreground: #1e293b;
+
+  --sidebar-border: var(--brand-neutral);
+  --sidebar-ring: var(--brand-primary);
+
+
+  /* =======================================================
+     RADIUS
+     ======================================================= */
+
+  --radius: 0.625rem;
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+.dark {
+
+  /* =======================================================
+     BRAND COLORS
+     ======================================================= */
+
+  --brand-primary: #3b5ccc;
+  --brand-primary-dark: #152a63;
+  --brand-accent: #fbbf24;
+  --brand-neutral: #334155;
+
+
+  /* =======================================================
+     BACKGROUND / FOREGROUND
+     ======================================================= */
+
+  --background: #0b1120;
+  --foreground: #f8fafc;
+
+
+  /* =======================================================
+     CARD
+     ======================================================= */
+
+  --card: #111827;
+  --card-foreground: #f8fafc;
+
+
+  /* =======================================================
+     POPOVER
+     ======================================================= */
+
+  --popover: #111827;
+  --popover-foreground: #f8fafc;
+
+
+  /* =======================================================
+     PRIMARY
+     ======================================================= */
+
+  --primary: #3b5ccc;
+  --primary-foreground: #ffffff;
+
+
+  /* =======================================================
+     SECONDARY
+     ======================================================= */
+
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+
+
+  /* =======================================================
+     MUTED
+     ======================================================= */
+
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+
+
+  /* =======================================================
+     ACCENT
+     ======================================================= */
+
+  --accent: #fbbf24;
+  --accent-foreground: #422006;
+
+
+  /* =======================================================
+     DESTRUCTIVE
+     ======================================================= */
+
+  --destructive: #ef4444;
+
+
+  /* =======================================================
+     BORDER / INPUT / RING
+     ======================================================= */
+
+  --border: #334155;
+  --input: #475569;
+  --ring: #3b5ccc;
+
+
+  /* =======================================================
+     CHART COLORS
+     ======================================================= */
+
+  --chart-1: #60a5fa;
+  --chart-2: #a78bfa;
+  --chart-3: #22d3ee;
+  --chart-4: #fb923c;
+  --chart-5: #4ade80;
+
+
+  /* =======================================================
+     STATUS COLORS
+     ======================================================= */
+
+  /* DRAFT — Slate */
+  --status-draft: #94a3b8;
+
+  /* PENDING — Amber */
+  --status-pending: #fbbf24;
+
+  /* SUBMITTED — Blue */
+  --status-submitted: #60a5fa;
+
+  /* PARTIALLY_PAID — Orange */
+  --status-partially-paid: #fb923c;
+
+  /* APPROVED — Green */
+  --status-approved: #4ade80;
+
+  /* PUBLISHED — Green */
+  --status-published: #4ade80;
+
+  /* SUCCESS — Green */
+  --status-success: #4ade80;
+
+  /* PAID — Green */
+  --status-paid: #4ade80;
+
+  /* ACTIVE — Emerald */
+  --status-active: #34d399;
+
+  /* REJECTED — Red */
+  --status-rejected: #f87171;
+
+  /* FAILED — Red */
+  --status-failed: #f87171;
+
+  /* CANCELLED — Gray */
+  --status-cancelled: #9ca3af;
+
+  /* OVERDUE — Rose */
+  --status-overdue: #fb7185;
+
+  /* SUSPENDED — Orange/Red */
+  --status-suspended: #fb923c;
+
+
+  /* =======================================================
+     SIDEBAR
+     ======================================================= */
+
+  --sidebar: #0f172a;
+  --sidebar-foreground: #f8fafc;
+
+  --sidebar-primary: #3b5ccc;
+  --sidebar-primary-foreground: #ffffff;
+
+  --sidebar-accent: #1e293b;
+  --sidebar-accent-foreground: #f8fafc;
+
+  --sidebar-border: #334155;
+  --sidebar-ring: #3b5ccc;
+}
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+@layer base {
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    @apply font-sans;
+  }
+}
+
