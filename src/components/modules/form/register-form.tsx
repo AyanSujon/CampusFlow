@@ -21,6 +21,7 @@ import Link from "next/link";
 import { StudentProfileForm } from "./StudentProfileForm";
 import { RegisterFormData } from "./register.interface";
 import { accountSchema, registerSchema } from "./register.validation";
+import { OTPForm } from "./OTPForm";
 
 
 
@@ -48,7 +49,12 @@ export function RegisterForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
-    const [step, setStep] = useState<1 | 2>(1);
+    const [step, setStep] = useState<1 | 2 | 3>(1);
+    const [otp, setOtp] = useState("");
+    const [resendLoading, setResendLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+
 
     const [formData, setFormData] =
         useState<RegisterFormData>(initialFormData);
@@ -98,6 +104,23 @@ export function RegisterForm({
         }
 
         setStep(2);
+    };
+
+
+    const handleResendOTP = async () => {
+        try {
+            setResendLoading(true);
+
+            // Call your resend OTP API here
+            // await resendOTP();
+
+            // Optional: clear previous OTP
+            setOtp("");
+        } catch (error) {
+            console.error("Failed to resend OTP:", error);
+        } finally {
+            setResendLoading(false);
+        }
     };
 
     const buildPayload = (includeProfile: boolean) => {
@@ -163,6 +186,20 @@ export function RegisterForm({
     };
 
 
+    const handleVerifyOTP = () => {
+        console.log("OTP:", otp);
+
+        // Call your OTP verification API here
+
+        // Example:
+        // await verifyOTP({ email: formData.email, otp });
+
+        // If successful:
+        // router.push("/dashboard");
+    };
+
+
+
     const handleRegister = () => {
         setError("");
 
@@ -177,8 +214,24 @@ export function RegisterForm({
 
         console.log("Register Payload:", payload);
 
+        setStep(3);
+
         // API call
+
+
     };
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <div
@@ -195,7 +248,7 @@ export function RegisterForm({
                             {/* =========================
                                 HEADER
                             ========================== */}
-                            <div className="flex flex-col gap-2 text-center">
+                            {/* <div className="flex flex-col gap-2 text-center">
                                 <div className="mx-auto flex items-center gap-2 text-sm font-medium">
                                     <span
                                         className={cn(
@@ -225,7 +278,8 @@ export function RegisterForm({
                                 <h1 className="text-2xl font-bold">
                                     {step === 1
                                         ? "Welcome to CampusFlow"
-                                        : "Complete Your Profile"}
+                                        : "Complete Your Profile"
+                                    }
                                 </h1>
 
                                 <p className="text-balance text-muted-foreground">
@@ -234,7 +288,72 @@ export function RegisterForm({
                                         : `Add your student information. You can skip this step and complete it later.`}
 
                                 </p>
+                            </div> */}
+
+                            {/* =========================
+    HEADER
+========================== */}
+                            <div className="flex flex-col gap-2 text-center">
+                                <div className="mx-auto flex items-center gap-2 text-sm font-medium">
+                                    {/* Step 1 */}
+                                    <span
+                                        className={cn(
+                                            "flex size-7 items-center justify-center rounded-full text-xs",
+                                            step === 1
+                                                ? "bg-primary text-primary-foreground"
+                                                : "bg-muted text-muted-foreground"
+                                        )}
+                                    >
+                                        1
+                                    </span>
+
+                                    <span className="h-px w-8 bg-border" />
+
+                                    {/* Step 2 */}
+                                    <span
+                                        className={cn(
+                                            "flex size-7 items-center justify-center rounded-full text-xs",
+                                            step === 2
+                                                ? "bg-primary text-primary-foreground"
+                                                : "bg-muted text-muted-foreground"
+                                        )}
+                                    >
+                                        2
+                                    </span>
+
+                                    <span className="h-px w-8 bg-border" />
+
+                                    {/* Step 3 */}
+                                    <span
+                                        className={cn(
+                                            "flex size-7 items-center justify-center rounded-full text-xs",
+                                            step === 3
+                                                ? "bg-primary text-primary-foreground"
+                                                : "bg-muted text-muted-foreground"
+                                        )}
+                                    >
+                                        3
+                                    </span>
+                                </div>
+
+                                <h1 className="text-2xl font-bold">
+                                    {step === 1
+                                        ? "Welcome to CampusFlow"
+                                        : step === 2
+                                            ? "Complete Your Profile"
+                                            : "Verify Your Email"}
+                                </h1>
+
+                                <p className="text-balance text-muted-foreground">
+                                    {step === 1
+                                        ? "Create your CampusFlow account"
+                                        : step === 2
+                                            ? "Add your student information. You can skip this step and complete it later."
+                                            : "Enter the 6-digit OTP sent to your email address."}
+                                </p>
                             </div>
+
+
 
                             {/* =========================
                                 STEP 1
@@ -398,6 +517,36 @@ export function RegisterForm({
 
                             )}
 
+
+                            {/* =========================
+                                STEP 3
+                            ========================== */}
+
+                            {step === 3 && (
+                                // <OTPForm
+                                //     otp={otp}
+                                //     setOtp={setOtp}
+                                //     onVerify={handleVerifyOTP}
+                                //     handleBack={() => {
+                                //         setError("");
+                                //         setStep(2);
+                                //     }}
+                                // />
+
+
+                                <OTPForm
+                                    otp={otp}
+                                    setOtp={setOtp}
+                                    onVerify={handleVerifyOTP}
+                                    onResend={handleResendOTP}
+                                    handleBack={() => {
+                                        setError("");
+                                        setStep(2);
+                                    }}
+                                    loading={loading}
+                                    resendLoading={resendLoading}
+                                />
+                            )}
 
 
                             {/* LOGIN LINK */}

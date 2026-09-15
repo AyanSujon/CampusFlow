@@ -62,7 +62,7 @@ export function StudentProfileForm({
                 type="button"
                 variant="outline"
                 onClick={handleBack}
-                className="mb-4" > <ArrowLeft /> </Button>
+                className="mb-4" > <ArrowLeft /> Back</Button>
             <FieldGroup>
 
                 {/* Program */}
