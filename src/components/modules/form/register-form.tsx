@@ -231,7 +231,8 @@ export function RegisterForm({
                                 <p className="text-balance text-muted-foreground">
                                     {step === 1
                                         ? "Create your CampusFlow account"
-                                        : "Add your student information"}
+                                        : `Add your student information. You can skip this step and complete it later.`}
+
                                 </p>
                             </div>
 
