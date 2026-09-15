@@ -1,10 +1,6 @@
 
 
 
-
-
-
-
 "use client";
 
 import React, { useState } from "react";
@@ -22,26 +18,11 @@ import {
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
+import { StudentProfileForm } from "./StudentProfileForm";
+import { RegisterFormData } from "./register.interface";
+import { accountSchema, registerSchema } from "./register.validation";
 
-type Gender = "MALE" | "FEMALE" | "OTHER";
 
-interface RegisterFormData {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-
-    studentProfile: {
-        programId: string;
-        dateOfBirth: string;
-        gender: Gender | "";
-        phone: string;
-        address: string;
-        bloodGroup: string;
-        guardianName: string;
-        guardianPhone: string;
-    };
-}
 
 const initialFormData: RegisterFormData = {
     name: "",
@@ -60,6 +41,8 @@ const initialFormData: RegisterFormData = {
         guardianPhone: "",
     },
 };
+
+
 
 export function RegisterForm({
     className,
@@ -98,31 +81,19 @@ export function RegisterForm({
         }));
     };
 
+
     const handleContinue = () => {
         setError("");
 
-        if (!formData.name.trim()) {
-            setError("Please enter your name.");
-            return;
-        }
+        const result = accountSchema.safeParse({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+        });
 
-        if (!formData.email.trim()) {
-            setError("Please enter your email.");
-            return;
-        }
-
-        if (!formData.password) {
-            setError("Please enter your password.");
-            return;
-        }
-
-        if (formData.password.length < 6) {
-            setError("Password must be at least 6 characters.");
-            return;
-        }
-
-        if (formData.password !== formData.confirmPassword) {
-            setError("Passwords do not match.");
+        if (!result.success) {
+            setError(result.error.issues[0]?.message ?? "Invalid form data.");
             return;
         }
 
@@ -168,28 +139,45 @@ export function RegisterForm({
         return payload;
     };
 
+
     const handleSkip = () => {
+        setError("");
+
+        const result = accountSchema.safeParse({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+        });
+
+        if (!result.success) {
+            setError(result.error.issues[0]?.message ?? "Invalid form data.");
+            return;
+        }
+
         const payload = buildPayload(false);
 
         console.log("Register Payload:", payload);
 
-        // TODO:
-        // Call your registration API here.
-        //
-        // Example:
-        // await registerStudent(payload);
+        // API call
     };
 
+
     const handleRegister = () => {
+        setError("");
+
+        const result = registerSchema.safeParse(formData);
+
+        if (!result.success) {
+            setError(result.error.issues[0]?.message ?? "Invalid form data.");
+            return;
+        }
+
         const payload = buildPayload(true);
 
         console.log("Register Payload:", payload);
 
-        // TODO:
-        // Call your registration API here.
-        //
-        // Example:
-        // await registerStudent(payload);
+        // API call
     };
 
     return (
@@ -396,235 +384,20 @@ export function RegisterForm({
                                 STEP 2
                             ========================== */}
                             {step === 2 && (
-                                <>
-                                    <Field>
-                                        <FieldLabel htmlFor="programId">
-                                            Program
-                                        </FieldLabel>
+                                <StudentProfileForm
+                                    studentProfile={formData.studentProfile}
+                                    updateProfileField={updateProfileField}
+                                    handleSkip={handleSkip}
+                                    handleRegister={handleRegister}
+                                    handleBack={() => {
+                                        setError("");
+                                        setStep(1);
+                                    }}
+                                />
 
-                                        <Input
-                                            id="programId"
-                                            type="text"
-                                            placeholder="Enter program ID"
-                                            value={
-                                                formData.studentProfile
-                                                    .programId
-                                            }
-                                            onChange={(e) =>
-                                                updateProfileField(
-                                                    "programId",
-                                                    e.target.value
-                                                )
-                                            }
-                                        />
-                                    </Field>
-
-                                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                        <Field>
-                                            <FieldLabel htmlFor="dateOfBirth">
-                                                Date of Birth
-                                            </FieldLabel>
-
-                                            <Input
-                                                id="dateOfBirth"
-                                                type="date"
-                                                value={
-                                                    formData.studentProfile
-                                                        .dateOfBirth
-                                                }
-                                                onChange={(e) =>
-                                                    updateProfileField(
-                                                        "dateOfBirth",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </Field>
-
-                                        <Field>
-                                            <FieldLabel htmlFor="gender">
-                                                Gender
-                                            </FieldLabel>
-
-                                            <select
-                                                id="gender"
-                                                value={
-                                                    formData.studentProfile
-                                                        .gender
-                                                }
-                                                onChange={(e) =>
-                                                    updateProfileField(
-                                                        "gender",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm shadow-xs outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                                            >
-                                                <option value="">
-                                                    Select gender
-                                                </option>
-                                                <option value="MALE">
-                                                    Male
-                                                </option>
-                                                <option value="FEMALE">
-                                                    Female
-                                                </option>
-                                                <option value="OTHER">
-                                                    Other
-                                                </option>
-                                            </select>
-                                        </Field>
-                                    </div>
-
-
-
-                                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-
-                                        <Field>
-                                            <FieldLabel htmlFor="phone">
-                                                Phone
-                                            </FieldLabel>
-
-                                            <Input
-                                                id="phone"
-                                                type="tel"
-                                                placeholder="+880 1XXXXXXXXX"
-                                                value={
-                                                    formData.studentProfile.phone
-                                                }
-                                                onChange={(e) =>
-                                                    updateProfileField(
-                                                        "phone",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </Field>
-
-                                        <Field>
-                                            <FieldLabel htmlFor="bloodGroup">
-                                                Blood Group
-                                            </FieldLabel>
-
-                                            <Input
-                                                id="bloodGroup"
-                                                type="text"
-                                                placeholder="e.g. A+, B+, O+"
-                                                value={
-                                                    formData.studentProfile
-                                                        .bloodGroup
-                                                }
-                                                onChange={(e) =>
-                                                    updateProfileField(
-                                                        "bloodGroup",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </Field>
-                                    </div>
-
-                                    <Field>
-                                        <FieldLabel htmlFor="address">
-                                            Address
-                                        </FieldLabel>
-
-                                        <Input
-                                            id="address"
-                                            type="text"
-                                            placeholder="Your current address"
-                                            value={
-                                                formData.studentProfile
-                                                    .address
-                                            }
-                                            onChange={(e) =>
-                                                updateProfileField(
-                                                    "address",
-                                                    e.target.value
-                                                )
-                                            }
-                                        />
-                                    </Field>
-
-
-
-                                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                        <Field>
-                                            <FieldLabel htmlFor="guardianName">
-                                                Guardian Name
-                                            </FieldLabel>
-
-                                            <Input
-                                                id="guardianName"
-                                                type="text"
-                                                placeholder="Guardian name"
-                                                value={
-                                                    formData.studentProfile
-                                                        .guardianName
-                                                }
-                                                onChange={(e) =>
-                                                    updateProfileField(
-                                                        "guardianName",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </Field>
-
-                                        <Field>
-                                            <FieldLabel htmlFor="guardianPhone">
-                                                Guardian Phone
-                                            </FieldLabel>
-
-                                            <Input
-                                                id="guardianPhone"
-                                                type="tel"
-                                                placeholder="Guardian phone"
-                                                value={
-                                                    formData.studentProfile
-                                                        .guardianPhone
-                                                }
-                                                onChange={(e) =>
-                                                    updateProfileField(
-                                                        "guardianPhone",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </Field>
-                                    </div>
-
-                                    {/* ACTIONS */}
-                                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                                        <Button
-                                            type="button"
-                                            variant="outline"
-                                            onClick={handleSkip}
-                                        >
-                                            Skip for later
-                                        </Button>
-
-                                        <Button
-                                            type="button"
-                                            onClick={handleRegister}
-                                        >
-                                            Complete Registration
-                                        </Button>
-                                    </div>
-
-                                    <Button
-                                        type="button"
-                                        variant="ghost"
-                                        onClick={() => {
-                                            setError("");
-                                            setStep(1);
-                                        }}
-                                        className="w-full"
-                                    >
-                                        Back
-                                    </Button>
-                                </>
                             )}
+
+
 
                             {/* LOGIN LINK */}
                             <FieldDescription className="text-center">
@@ -664,36 +437,6 @@ export function RegisterForm({
         </div>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

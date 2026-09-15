@@ -1,191 +1,239 @@
-// "use client";
 
-// import { Button } from "@/components/ui/button";
-// import {
-//   Field,
-//   FieldDescription,
-//   FieldGroup,
-//   FieldLabel,
-// } from "@/components/ui/field";
-// import { Input } from "@/components/ui/input";
 
-// export interface StudentProfileData {
-//   programId?: string;
-//   dateOfBirth?: string;
-//   gender?: "MALE" | "FEMALE" | "OTHER";
-//   phone?: string;
-//   address?: string;
-//   bloodGroup?: string;
-//   guardianName?: string;
-//   guardianPhone?: string;
-// }
 
-// interface StudentProfileFormProps {
-//   data: StudentProfileData;
-//   onChange: (data: StudentProfileData) => void;
-//   onSkip: () => void;
-//   onSubmit: () => void;
-// }
 
-// export function StudentProfileForm({
-//   data,
-//   onChange,
-//   onSkip,
-//   onSubmit,
-// }: StudentProfileFormProps) {
-//   const updateField = (
-//     field: keyof StudentProfileData,
-//     value: string
-//   ) => {
-//     onChange({
-//       ...data,
-//       [field]: value,
-//     });
-//   };
+"use client";
 
-//   return (
-//     <FieldGroup>
-//       <div className="flex flex-col items-center gap-2 text-center">
-//         <h1 className="text-2xl font-bold">Complete Your Profile</h1>
+import { Button } from "@/components/ui/button";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 
-//         <p className="text-balance text-muted-foreground">
-//           Add your student information. You can skip this step and complete it
-//           later.
-//         </p>
-//       </div>
+type Gender = "MALE" | "FEMALE" | "OTHER";
 
-//       {/* Program */}
-//       <Field>
-//         <FieldLabel htmlFor="programId">Program ID</FieldLabel>
+export interface StudentProfile {
+  programId?: string;
+  dateOfBirth?: string;
+  gender?: Gender | "";
+  phone?: string;
+  address?: string;
+  bloodGroup?: string;
+  guardianName?: string;
+  guardianPhone?: string;
+}
 
-//         <Input
-//           id="programId"
-//           type="text"
-//           placeholder="Enter your program ID"
-//           value={data.programId ?? ""}
-//           onChange={(e) => updateField("programId", e.target.value)}
-//         />
+interface StudentProfileFormProps {
+  studentProfile: StudentProfile;
 
-//         <FieldDescription>
-//           You can select your program from the student dashboard later.
-//         </FieldDescription>
-//       </Field>
+  updateProfileField: (
+    field: keyof StudentProfile,
+    value: string
+  ) => void;
 
-//       {/* Date of Birth */}
-//       <Field>
-//         <FieldLabel htmlFor="dateOfBirth">Date of Birth</FieldLabel>
+  handleSkip: () => void;
+  handleRegister: () => void;
+  handleBack: () => void;
+}
 
-//         <Input
-//           id="dateOfBirth"
-//           type="date"
-//           value={data.dateOfBirth ?? ""}
-//           onChange={(e) => updateField("dateOfBirth", e.target.value)}
-//         />
-//       </Field>
+export function StudentProfileForm({
+  studentProfile,
+  updateProfileField,
+  handleSkip,
+  handleRegister,
+  handleBack,
+}: StudentProfileFormProps) {
+  const updateField = (
+    field: keyof StudentProfile,
+    value: string
+  ) => {
+    updateProfileField(field, value);
+  };
 
-//       {/* Gender */}
-//       <Field>
-//         <FieldLabel htmlFor="gender">Gender</FieldLabel>
+  return (
+    <FieldGroup>
+      <div className="flex flex-col items-center gap-2 text-center">
+        <h1 className="text-2xl font-bold">
+          Complete Your Profile
+        </h1>
 
-//         <select
-//           id="gender"
-//           value={data.gender ?? ""}
-//           onChange={(e) =>
-//             updateField(
-//               "gender",
-//               e.target.value as StudentProfileData["gender"]
-//             )
-//           }
-//           className="border-input bg-background ring-offset-background focus-visible:ring-ring flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-//         >
-//           <option value="">Select gender</option>
-//           <option value="MALE">Male</option>
-//           <option value="FEMALE">Female</option>
-//           <option value="OTHER">Other</option>
-//         </select>
-//       </Field>
+        <p className="text-balance text-muted-foreground">
+          Add your student information. You can skip this step and complete it
+          later.
+        </p>
+      </div>
 
-//       {/* Phone */}
-//       <Field>
-//         <FieldLabel htmlFor="phone">Phone</FieldLabel>
+      {/* Program */}
+      <Field>
+        <FieldLabel htmlFor="programId">
+          Program ID
+        </FieldLabel>
 
-//         <Input
-//           id="phone"
-//           type="tel"
-//           placeholder="+880 1XXXXXXXXX"
-//           value={data.phone ?? ""}
-//           onChange={(e) => updateField("phone", e.target.value)}
-//         />
-//       </Field>
+        <Input
+          id="programId"
+          type="text"
+          placeholder="Enter your program ID"
+          value={studentProfile.programId ?? ""}
+          onChange={(e) =>
+            updateField("programId", e.target.value)
+          }
+        />
 
-//       {/* Address */}
-//       <Field>
-//         <FieldLabel htmlFor="address">Address</FieldLabel>
+        <FieldDescription>
+          You can select your program from the student dashboard later.
+        </FieldDescription>
+      </Field>
 
-//         <Input
-//           id="address"
-//           type="text"
-//           placeholder="Your current address"
-//           value={data.address ?? ""}
-//           onChange={(e) => updateField("address", e.target.value)}
-//         />
-//       </Field>
+      {/* Date of Birth */}
+      <Field>
+        <FieldLabel htmlFor="dateOfBirth">
+          Date of Birth
+        </FieldLabel>
 
-//       {/* Blood Group */}
-//       <Field>
-//         <FieldLabel htmlFor="bloodGroup">Blood Group</FieldLabel>
+        <Input
+          id="dateOfBirth"
+          type="date"
+          value={studentProfile.dateOfBirth ?? ""}
+          onChange={(e) =>
+            updateField("dateOfBirth", e.target.value)
+          }
+        />
+      </Field>
 
-//         <Input
-//           id="bloodGroup"
-//           type="text"
-//           placeholder="e.g. A+, B+, O+"
-//           value={data.bloodGroup ?? ""}
-//           onChange={(e) => updateField("bloodGroup", e.target.value)}
-//         />
-//       </Field>
+      {/* Gender */}
+      <Field>
+        <FieldLabel htmlFor="gender">
+          Gender
+        </FieldLabel>
 
-//       {/* Guardian Name */}
-//       <Field>
-//         <FieldLabel htmlFor="guardianName">Guardian Name</FieldLabel>
+        <select
+          id="gender"
+          value={studentProfile.gender ?? ""}
+          onChange={(e) =>
+            updateField("gender", e.target.value)
+          }
+          className="border-input bg-background ring-offset-background focus-visible:ring-ring flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+        >
+          <option value="">Select gender</option>
+          <option value="MALE">Male</option>
+          <option value="FEMALE">Female</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </Field>
 
-//         <Input
-//           id="guardianName"
-//           type="text"
-//           placeholder="Guardian's full name"
-//           value={data.guardianName ?? ""}
-//           onChange={(e) => updateField("guardianName", e.target.value)}
-//         />
-//       </Field>
+      {/* Phone */}
+      <Field>
+        <FieldLabel htmlFor="phone">
+          Phone
+        </FieldLabel>
 
-//       {/* Guardian Phone */}
-//       <Field>
-//         <FieldLabel htmlFor="guardianPhone">
-//           Guardian Phone
-//         </FieldLabel>
+        <Input
+          id="phone"
+          type="tel"
+          placeholder="+880 1XXXXXXXXX"
+          value={studentProfile.phone ?? ""}
+          onChange={(e) =>
+            updateField("phone", e.target.value)
+          }
+        />
+      </Field>
 
-//         <Input
-//           id="guardianPhone"
-//           type="tel"
-//           placeholder="+880 1XXXXXXXXX"
-//           value={data.guardianPhone ?? ""}
-//           onChange={(e) => updateField("guardianPhone", e.target.value)}
-//         />
-//       </Field>
+      {/* Address */}
+      <Field>
+        <FieldLabel htmlFor="address">
+          Address
+        </FieldLabel>
 
-//       {/* Actions */}
-//       <Field className="gap-3">
-//         <Button type="button" onClick={onSubmit}>
-//           Complete Registration
-//         </Button>
+        <Input
+          id="address"
+          type="text"
+          placeholder="Your current address"
+          value={studentProfile.address ?? ""}
+          onChange={(e) =>
+            updateField("address", e.target.value)
+          }
+        />
+      </Field>
 
-//         <Button
-//           type="button"
-//           variant="outline"
-//           onClick={onSkip}
-//         >
-//           Skip for later
-//         </Button>
-//       </Field>
-//     </FieldGroup>
-//   );
-// }
+      {/* Blood Group */}
+      <Field>
+        <FieldLabel htmlFor="bloodGroup">
+          Blood Group
+        </FieldLabel>
+
+        <Input
+          id="bloodGroup"
+          type="text"
+          placeholder="e.g. A+, B+, O+"
+          value={studentProfile.bloodGroup ?? ""}
+          onChange={(e) =>
+            updateField("bloodGroup", e.target.value)
+          }
+        />
+      </Field>
+
+      {/* Guardian Name */}
+      <Field>
+        <FieldLabel htmlFor="guardianName">
+          Guardian Name
+        </FieldLabel>
+
+        <Input
+          id="guardianName"
+          type="text"
+          placeholder="Guardian's full name"
+          value={studentProfile.guardianName ?? ""}
+          onChange={(e) =>
+            updateField("guardianName", e.target.value)
+          }
+        />
+      </Field>
+
+      {/* Guardian Phone */}
+      <Field>
+        <FieldLabel htmlFor="guardianPhone">
+          Guardian Phone
+        </FieldLabel>
+
+        <Input
+          id="guardianPhone"
+          type="tel"
+          placeholder="+880 1XXXXXXXXX"
+          value={studentProfile.guardianPhone ?? ""}
+          onChange={(e) =>
+            updateField("guardianPhone", e.target.value)
+          }
+        />
+      </Field>
+
+      {/* Actions */}
+      <Field className="gap-3">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleBack}
+        >
+          Back
+        </Button>
+
+        <Button
+          type="button"
+          onClick={handleRegister}
+        >
+          Complete Registration
+        </Button>
+
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleSkip}
+        >
+          Skip for later
+        </Button>
+      </Field>
+    </FieldGroup>
+  );
+}
