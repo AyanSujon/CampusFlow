@@ -1,3 +1,5 @@
+// "use server";
+
 import { userLogin } from "@/api";
 import { useMutation } from "@tanstack/react-query";
 
