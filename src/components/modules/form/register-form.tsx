@@ -248,51 +248,6 @@ export function RegisterForm({
                             {/* =========================
                                 HEADER
                             ========================== */}
-                            {/* <div className="flex flex-col gap-2 text-center">
-                                <div className="mx-auto flex items-center gap-2 text-sm font-medium">
-                                    <span
-                                        className={cn(
-                                            "flex size-7 items-center justify-center rounded-full text-xs",
-                                            step === 1
-                                                ? "bg-primary text-primary-foreground"
-                                                : "bg-muted text-muted-foreground"
-                                        )}
-                                    >
-                                        1
-                                    </span>
-
-                                    <span className="h-px w-8 bg-border" />
-
-                                    <span
-                                        className={cn(
-                                            "flex size-7 items-center justify-center rounded-full text-xs",
-                                            step === 2
-                                                ? "bg-primary text-primary-foreground"
-                                                : "bg-muted text-muted-foreground"
-                                        )}
-                                    >
-                                        2
-                                    </span>
-                                </div>
-
-                                <h1 className="text-2xl font-bold">
-                                    {step === 1
-                                        ? "Welcome to CampusFlow"
-                                        : "Complete Your Profile"
-                                    }
-                                </h1>
-
-                                <p className="text-balance text-muted-foreground">
-                                    {step === 1
-                                        ? "Create your CampusFlow account"
-                                        : `Add your student information. You can skip this step and complete it later.`}
-
-                                </p>
-                            </div> */}
-
-                            {/* =========================
-    HEADER
-========================== */}
                             <div className="flex flex-col gap-2 text-center">
                                 <div className="mx-auto flex items-center gap-2 text-sm font-medium">
                                     {/* Step 1 */}
