@@ -513,11 +513,13 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useLogin } from "@/hooks/auth.hook";
+import { useGoogleOAuth, useLogin } from "@/hooks/auth.hook";
 import { useRouter } from "next/navigation";
 
 import { Eye, EyeClosed } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
+import { GoogleLogin } from '@react-oauth/google';
+
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -525,6 +527,7 @@ export function LoginForm() {
   const router = useRouter();
 
   const { mutate: login, isPending: loginPending } = useLogin();
+  const { mutate: googleLogin } = useGoogleOAuth();
 
   const form = useForm({
     defaultValues: {
@@ -565,6 +568,63 @@ export function LoginForm() {
       });
     },
   });
+
+
+
+  const handleGoogleSuccess = (credentialResponse: { credential?: string }) => {
+
+    const idToken = credentialResponse?.credential;
+
+
+
+    if (!idToken) {
+      toast.add({
+        title: "Google OAuth Failed",
+        description: "Something went wrong. Please try again.",
+        type: "error"
+      })
+      return;
+    }
+
+    googleLogin({ idToken }, {
+      onSuccess: () => {
+        toast.add({
+          title: "Logged in Successfully",
+          description: "Welcome back",
+          type: "success"
+        })
+        router.push("/");
+      },
+
+      onError: (err) => {
+        toast.add({
+          title: "Google OAuth Failed",
+          description: err.message || "Something went wrong. Please try again.",
+          type: "error"
+        })
+      }
+    });
+  }
+
+
+  const handleGoogleError = () => {
+    toast.add({
+      title: "Google OAuth Failed",
+      description: "Something went wrong. Please try again.",
+      type: "error"
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="flex flex-col gap-6">
@@ -678,7 +738,7 @@ export function LoginForm() {
               </FieldSeparator>
 
               {/* Google Login */}
-              <Field className="grid grid-cols-1 gap-4">
+              {/* <Field className="grid grid-cols-1 gap-4">
                 <Button
                   variant="outline"
                   type="button"
@@ -713,7 +773,20 @@ export function LoginForm() {
 
                   <span>Continue with Google</span>
                 </Button>
-              </Field>
+              </Field> */}
+
+              <GoogleLogin
+                shape="pill"
+                text="continue_with"
+                onSuccess={credentialResponse => {
+                  handleGoogleSuccess
+                  // console.log(credentialResponse);
+                }}
+                onError={() => {
+                  handleGoogleError
+                  // console.log('Login Failed');
+                }}
+              />
 
               {/* Register Link */}
               <FieldDescription className="text-center">
