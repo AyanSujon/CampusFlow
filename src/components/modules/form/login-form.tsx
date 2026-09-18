@@ -778,14 +778,8 @@ export function LoginForm() {
               <GoogleLogin
                 shape="pill"
                 text="continue_with"
-                onSuccess={credentialResponse => {
-                  handleGoogleSuccess
-                  // console.log(credentialResponse);
-                }}
-                onError={() => {
-                  handleGoogleError
-                  // console.log('Login Failed');
-                }}
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleError}
               />
 
               {/* Register Link */}
