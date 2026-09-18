@@ -438,6 +438,11 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { useGetMe, useLogout } from "@/hooks/auth.hook";
+import { toast } from "@/components/ui/toast";
+import { Button } from "@/components/ui/button";
+import { useQueryClient } from "@tanstack/react-query";
+
 
 const routes = [
   {
@@ -480,12 +485,46 @@ const routes = [
   },
 ];
 
+
+
+
+
 export default function HeaderPublic() {
   const pathname = usePathname();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
 
+
+  const { data, isLoading } = useGetMe();
+  const { mutate: logout } = useLogout();
+  const queryClient = useQueryClient();
+
+  const handleLogout = () => {
+
+    logout(undefined, {
+      onSuccess: () => {
+        toast.add({
+          title: "Logout Success",
+          description: "logged out successfully",
+          type: "success"
+        });
+        queryClient.removeQueries({ queryKey: ["user"] });
+
+      },
+      onError: () => {
+        toast.add({
+          title: "Logout Failed",
+          description: "Something Went Wrong",
+          type: "error"
+        })
+      }
+
+    })
+
+  }
+
+  // console.log(data, "header data")
   // ============================================================
   // ACTIVE ROUTE
   // ============================================================
@@ -570,10 +609,9 @@ export default function HeaderPublic() {
                           focus-visible:ring-2
                           focus-visible:ring-ring
 
-                          ${
-                            active
-                              ? "text-primary"
-                              : "text-foreground hover:bg-primary/10 hover:text-primary"
+                          ${active
+                            ? "text-primary"
+                            : "text-foreground hover:bg-primary/10 hover:text-primary"
                           }
                         `}
                       >
@@ -636,10 +674,9 @@ export default function HeaderPublic() {
                                 text-sm
                                 transition-colors
 
-                                ${
-                                  itemActive
-                                    ? "bg-primary/10 font-medium text-primary"
-                                    : "text-popover-foreground hover:bg-primary/10 hover:text-primary"
+                                ${itemActive
+                                  ? "bg-primary/10 font-medium text-primary"
+                                  : "text-popover-foreground hover:bg-primary/10 hover:text-primary"
                                 }
                               `}
                             >
@@ -675,10 +712,9 @@ export default function HeaderPublic() {
                         text-sm font-medium
                         transition-colors
 
-                        ${
-                          active
-                            ? "text-primary"
-                            : "text-foreground hover:bg-primary/10 hover:text-primary"
+                        ${active
+                          ? "text-primary"
+                          : "text-foreground hover:bg-primary/10 hover:text-primary"
                         }
                       `}
                     >
@@ -711,20 +747,48 @@ export default function HeaderPublic() {
           <div className="hidden items-center gap-3 lg:flex">
 
             {/* Login */}
-            <Link
-              href="/login"
-              className="
-                rounded-md
-                px-4 py-2
-                text-sm font-medium
-                text-foreground
-                transition-colors
-                hover:bg-secondary
-                hover:text-primary
-              "
-            >
-              Login
-            </Link>
+
+            {
+              !isLoading && !data && (
+                <Link
+                  href="/login"
+                  className="
+                  rounded-md
+                  px-5 py-2.5
+                  text-sm font-medium
+                  text-foreground
+                  transition-colors
+                  hover:bg-secondary
+                  hover:text-primary
+                  "
+                >
+                  Login
+                </Link>
+              )
+            }
+
+            {
+              !isLoading && data && (
+                <Button
+                  variant="ghost"
+                  type="button"
+                  onClick={handleLogout}
+                  className="
+                  rounded-md
+                  px-5 py-5
+                  text-sm font-medium
+                  text-foreground
+                  transition-colors
+                  hover:bg-secondary
+                  hover:text-primary
+                  "
+                >
+                  Logout
+                </Button>
+              )
+            }
+
+
 
             {/* Apply */}
             <Link
@@ -823,10 +887,9 @@ export default function HeaderPublic() {
                           text-sm font-medium
                           transition-colors
 
-                          ${
-                            active
-                              ? "bg-primary/10 text-primary"
-                              : "text-foreground hover:bg-primary/10 hover:text-primary"
+                          ${active
+                            ? "bg-primary/10 text-primary"
+                            : "text-foreground hover:bg-primary/10 hover:text-primary"
                           }
                         `}
                       >
@@ -873,10 +936,9 @@ export default function HeaderPublic() {
                             text-sm font-medium
                             transition-colors
 
-                            ${
-                              active
-                                ? "bg-primary/10 text-primary"
-                                : "text-foreground hover:bg-primary/10 hover:text-primary"
+                            ${active
+                              ? "bg-primary/10 text-primary"
+                              : "text-foreground hover:bg-primary/10 hover:text-primary"
                             }
                           `}
                         >
@@ -904,11 +966,10 @@ export default function HeaderPublic() {
                               transition-transform
                               duration-200
 
-                              ${
-                                mobileDropdown ===
+                              ${mobileDropdown ===
                                 route.name
-                                  ? "rotate-180"
-                                  : ""
+                                ? "rotate-180"
+                                : ""
                               }
                             `}
                           />
@@ -945,10 +1006,9 @@ export default function HeaderPublic() {
                                       text-sm
                                       transition-colors
 
-                                      ${
-                                        itemActive
-                                          ? "bg-primary/10 font-medium text-primary"
-                                          : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
+                                      ${itemActive
+                                        ? "bg-primary/10 font-medium text-primary"
+                                        : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
                                       }
                                     `}
                                   >
