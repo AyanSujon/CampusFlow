@@ -23,6 +23,7 @@ import { RegisterFormData } from "./register.interface";
 import { accountSchema, registerSchema } from "./register.validation";
 import { OTPForm } from "./OTPForm";
 import GoogleLoginComponent from "../google-login/GoogleLogin";
+import { Eye, EyeClosed } from "lucide-react";
 
 
 
@@ -52,6 +53,8 @@ export function RegisterForm({
 }: React.ComponentProps<"div">) {
     const [step, setStep] = useState<1 | 2 | 3>(1);
     const [otp, setOtp] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [resendLoading, setResendLoading] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -249,6 +252,9 @@ export function RegisterForm({
                             {/* =========================
                                 HEADER
                             ========================== */}
+
+
+
                             <div className="flex flex-col gap-2 text-center">
                                 <div className="mx-auto flex items-center gap-2 text-sm font-medium">
                                     {/* Step 1 */}
@@ -291,22 +297,17 @@ export function RegisterForm({
                                         3
                                     </span>
                                 </div>
+                                {
+                                    step === 1 && (
+                                        <>
+                                            <h1 className="text-2xl font-bold">Welcome to CampusFlow</h1>
+                                            <p className="text-balance text-muted-foreground">Create your CampusFlow account </p>
 
-                                <h1 className="text-2xl font-bold">
-                                    {step === 1
-                                        ? "Welcome to CampusFlow"
-                                        : step === 2
-                                            ? "Complete Your Profile"
-                                            : "Verify Your Email"}
-                                </h1>
+                                        </>
+                                    )
+                                }
 
-                                <p className="text-balance text-muted-foreground">
-                                    {step === 1
-                                        ? "Create your CampusFlow account"
-                                        : step === 2
-                                            ? "Add your student information. You can skip this step and complete it later."
-                                            : "Enter the 6-digit OTP sent to your email address."}
-                                </p>
+
                             </div>
 
 
@@ -356,48 +357,80 @@ export function RegisterForm({
                                         />
                                     </Field>
 
+
+
                                     <Field>
                                         <FieldLabel htmlFor="password">
                                             Password
                                         </FieldLabel>
+                                        <div className="relative">
+                                            <Input
+                                                id="password"
+                                                type={showPassword ? "text" : "password"}
+                                                placeholder="••••••••"
+                                                value={formData.password}
+                                                onChange={(e) =>
+                                                    updateAccountField(
+                                                        "password",
+                                                        e.target.value
+                                                    )
+                                                }
+                                                required
+                                            />
+                                            <button
+                                                className="absolute right-3 top-1/2 -translate-y-1/2"
+                                                type="button"
+                                                onClick={() => setShowPassword((prev) => !prev)}
+                                            >
+                                                {showPassword ? (
+                                                    <EyeClosed className="size-4" />
+                                                ) : (
+                                                    <Eye className="size-4" />
+                                                )}
+                                            </button>
 
-                                        <Input
-                                            id="password"
-                                            type="password"
-                                            placeholder="••••••••"
-                                            value={formData.password}
-                                            onChange={(e) =>
-                                                updateAccountField(
-                                                    "password",
-                                                    e.target.value
-                                                )
-                                            }
-                                            required
-                                        />
+                                        </div>
                                     </Field>
 
-                                    <Field>
+
+
+
+                                    <Field >
                                         <FieldLabel htmlFor="confirmPassword">
                                             Confirm Password
                                         </FieldLabel>
 
-                                        <Input
-                                            id="confirmPassword"
-                                            type="password"
-                                            placeholder="••••••••"
-                                            value={
-                                                formData.confirmPassword
-                                            }
-                                            onChange={(e) =>
-                                                updateAccountField(
-                                                    "confirmPassword",
-                                                    e.target.value
-                                                )
-                                            }
-                                            required
-                                        />
-                                    </Field>
+                                        <div className="relative">
+                                            <Input
+                                                id="confirmPassword"
+                                                type={showConfirmPassword ? "text" : "password"}
+                                                placeholder="••••••••"
+                                                value={
+                                                    formData.confirmPassword
+                                                }
+                                                onChange={(e) =>
+                                                    updateAccountField(
+                                                        "confirmPassword",
+                                                        e.target.value
+                                                    )
+                                                }
+                                                required
+                                            />
+                                            <button
+                                                className="absolute right-3 top-1/2 -translate-y-1/2"
+                                                type="button"
+                                                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                                            >
+                                                {showConfirmPassword ? (
+                                                    <EyeClosed className="size-4" />
+                                                ) : (
+                                                    <Eye className="size-4" />
+                                                )}
+                                            </button>
 
+                                        </div>
+                                    </Field>
+                                    
                                     {error && (
                                         <p className="text-sm text-destructive">
                                             {error}
@@ -449,16 +482,6 @@ export function RegisterForm({
                             ========================== */}
 
                             {step === 3 && (
-                                // <OTPForm
-                                //     otp={otp}
-                                //     setOtp={setOtp}
-                                //     onVerify={handleVerifyOTP}
-                                //     handleBack={() => {
-                                //         setError("");
-                                //         setStep(2);
-                                //     }}
-                                // />
-
 
                                 <OTPForm
                                     otp={otp}
@@ -513,6 +536,21 @@ export function RegisterForm({
         </div>
     );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

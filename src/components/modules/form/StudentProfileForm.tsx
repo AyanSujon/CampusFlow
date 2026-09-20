@@ -54,15 +54,27 @@ export function StudentProfileForm({
         updateProfileField(field, value);
     };
 
+
+
+    const isProfileIncomplete = Object.values(studentProfile).some(
+        (value) => !value?.trim()
+    );
     return (
         <div className="relative">
-
             {/* Back Button - Top Left */}
             <Button
+
                 type="button"
                 variant="outline"
                 onClick={handleBack}
-                className="mb-4" > <ArrowLeft /> Back</Button>
+                className="mb-4 absolute -top-12 left-0 rounded-full" > <ArrowLeft /></Button>
+
+            <div className="text-center">
+                <h1 className="text-2xl font-bold">Complete Your Profile</h1>
+                <p className="text-balance text-muted-foreground">Add your student information. You can skip this step and complete it later.</p>
+            </div>
+
+
             <FieldGroup>
 
                 {/* Program */}
@@ -227,6 +239,7 @@ export function StudentProfileForm({
                         Skip for later
                     </Button>
                     <Button
+                        disabled={isProfileIncomplete}
                         type="button"
                         onClick={handleRegister}
                     >

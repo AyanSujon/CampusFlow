@@ -1,93 +1,4 @@
 
-// "use client";
-
-// import { Button } from "@/components/ui/button";
-// import {
-//     InputOTP,
-//     InputOTPGroup,
-//     InputOTPSlot,
-// } from "@/components/ui/input-otp";
-
-// interface OTPFormProps {
-//     otp: string;
-//     setOtp: (value: string) => void;
-//     onVerify: () => void;
-//     handleBack: () => void;
-//     loading?: boolean;
-// }
-
-// export function OTPForm({
-//     otp,
-//     setOtp,
-//     onVerify,
-//     handleBack,
-//     loading = false,
-// }: OTPFormProps) {
-//     return (
-//         <div className="space-y-6">
-//             <div className="flex justify-center">
-//                 <InputOTP
-//                     maxLength={6}
-//                     value={otp}
-//                     onChange={setOtp}
-//                 >
-//                     <InputOTPGroup>
-//                         <InputOTPSlot index={0} />
-//                         <InputOTPSlot index={1} />
-//                         <InputOTPSlot index={2} />
-//                         <InputOTPSlot index={3} />
-//                         <InputOTPSlot index={4} />
-//                         <InputOTPSlot index={5} />
-//                     </InputOTPGroup>
-//                 </InputOTP>
-//             </div>
-
-//             <div className="flex items-center justify-between gap-4">
-//                 <Button
-//                     type="button"
-//                     variant="outline"
-//                     onClick={handleBack}
-//                 >
-//                     Back
-//                 </Button>
-
-//                 <Button
-//                     type="button"
-//                     onClick={onVerify}
-//                     disabled={otp.length !== 6 || loading}
-//                 >
-//                     {loading ? "Verifying..." : "Verify OTP"}
-//                 </Button>
-//             </div>
-//         </div>
-//     );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 "use client";
@@ -99,6 +10,7 @@ import {
     InputOTPGroup,
     InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { ArrowLeft } from "lucide-react";
 
 interface OTPFormProps {
     otp: string;
@@ -139,13 +51,32 @@ export function OTPForm({
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 relative">
+            {/* Back Button - Top Left */}
+            <Button
+                type="button"
+                variant="outline"
+                onClick={handleBack}
+                className="absolute -top-12 left-0 rounded-full"
+
+                disabled={loading || resendLoading}
+            >
+                <ArrowLeft />
+            </Button>
+
+
+            <div className="text-center">
+                <h1 className="text-2xl font-bold">Verify Your Email</h1>
+                <p className="text-balance text-muted-foreground">Enter the 6-digit OTP sent to your email address.</p>
+            </div>
             {/* OTP Input */}
             <div className="flex justify-center">
                 <InputOTP
                     maxLength={6}
                     value={otp}
                     onChange={setOtp}
+                    pattern="^[0-9]+$"
+                    inputMode="numeric"
                 >
                     <InputOTPGroup>
                         <InputOTPSlot index={0} />
@@ -174,21 +105,13 @@ export function OTPForm({
                     {resendLoading
                         ? "Resending..."
                         : resendTimer > 0
-                          ? `Resend in ${resendTimer}s`
-                          : "Resend OTP"}
+                            ? `Resend in ${resendTimer}s`
+                            : "Resend OTP"}
                 </Button>
             </div>
 
             {/* Buttons */}
-            <div className="flex items-center justify-between gap-4">
-                <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleBack}
-                    disabled={loading || resendLoading}
-                >
-                    Back
-                </Button>
+            <div className="text-center">
 
                 <Button
                     type="button"

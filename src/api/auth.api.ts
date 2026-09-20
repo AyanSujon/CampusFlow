@@ -1,8 +1,14 @@
 import apiClient from "@/lib/apiClient";
+import { UserRegistrationPayload } from "@/types";
 
 export  function userLogin(payload: {email: string, password: string}){
     return apiClient("/auth/login", {method: "POST", body: payload})
 }
+
+export  function userRegistration(payload: UserRegistrationPayload){
+    return apiClient("/auth/login", {method: "POST", body: payload})
+}
+
 export function userLogout(){
     return apiClient("/auth/logout", {method: "POST"})
 }
@@ -14,3 +20,5 @@ export function getMe(){
 export function googleOAuth(payload : {idToken: string}){
     return apiClient("/auth/google", {method: "POST", body: payload})
 }
+
+
