@@ -2,7 +2,7 @@ export interface UserRegistrationPayload {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 
   studentProfile?: {
     programId?: string;

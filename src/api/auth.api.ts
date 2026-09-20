@@ -6,7 +6,7 @@ export  function userLogin(payload: {email: string, password: string}){
 }
 
 export  function userRegistration(payload: UserRegistrationPayload){
-    return apiClient("/auth/login", {method: "POST", body: payload})
+    return apiClient("/auth/register", {method: "POST", body: payload})
 }
 
 export function userLogout(){

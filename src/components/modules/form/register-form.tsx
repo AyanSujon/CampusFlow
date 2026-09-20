@@ -1,534 +1,321 @@
 
 
-
 "use client";
 
-import React, { useState } from "react";
-import { cn } from "cn";
+import { useState } from "react";
+import { toast } from "@/components/ui/toast";
+import { useForm } from "@tanstack/react-form";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
     Field,
     FieldDescription,
+    FieldError,
     FieldGroup,
     FieldLabel,
     FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+
 import Image from "next/image";
 import Link from "next/link";
-import { StudentProfileForm } from "./StudentProfileForm";
-import { RegisterFormData } from "./register.interface";
-import { accountSchema, registerSchema } from "./register.validation";
-import { OTPForm } from "./OTPForm";
-import GoogleLoginComponent from "../google-login/GoogleLogin";
+
+import {  useRegistration } from "@/hooks/auth.hook";
+import { useRouter } from "next/navigation";
+
 import { Eye, EyeClosed } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
+import GoogleLoginComponent from "../google-login/GoogleLogin";
+import { StudentRegistrationZodSchema } from "./register.validation";
 
 
-
-const initialFormData: RegisterFormData = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-
-    studentProfile: {
-        programId: "",
-        dateOfBirth: "",
-        gender: "",
-        phone: "",
-        address: "",
-        bloodGroup: "",
-        guardianName: "",
-        guardianPhone: "",
-    },
-};
-
-
-
-export function RegisterForm({
-    className,
-    ...props
-}: React.ComponentProps<"div">) {
-    const [step, setStep] = useState<1 | 2 | 3>(1);
-    const [otp, setOtp] = useState("");
+export function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [resendLoading, setResendLoading] = useState(false);
-    const [loading, setLoading] = useState(false);
 
+    const router = useRouter();
 
+    const { mutate: registration, isPending: registrationPending } = useRegistration();
 
-    const [formData, setFormData] =
-        useState<RegisterFormData>(initialFormData);
+    const form = useForm({
+        defaultValues: {
+            name: "Ayan Sujon",
+            email: "superadmin@gmail.com",
+            password: "Super@admin12345",
+            confirmPassword: "Super@admin12345",
+        },
 
-    const [error, setError] = useState("");
+        validators: {
+          onSubmit: StudentRegistrationZodSchema,
+        },
 
-    const updateAccountField = (
-        field: keyof Pick<
-            RegisterFormData,
-            "name" | "email" | "password" | "confirmPassword"
-        >,
-        value: string
-    ) => {
-        setFormData((prev) => ({
-            ...prev,
-            [field]: value,
-        }));
-    };
+        onSubmit: ({ value }) => {
+            const registrationData = {
+                name: value.name,
+                email: value.email,
+                password: value.password,
+            };
 
-    const updateProfileField = (
-        field: keyof RegisterFormData["studentProfile"],
-        value: string
-    ) => {
-        setFormData((prev) => ({
-            ...prev,
-            studentProfile: {
-                ...prev.studentProfile,
-                [field]: value,
-            },
-        }));
-    };
+            const params = new URLSearchParams({email: registrationData.email});
 
+            registration(registrationData, {
+                onSuccess: (res) => {
+                    toast.add({
+                        title: "Registration Successful",
+                        description: "Please check your email and verify your account.",
+                        type: "success",
+                    });
 
-    const handleContinue = () => {
-        setError("");
-
-        const result = accountSchema.safeParse({
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
-            confirmPassword: formData.confirmPassword,
-        });
-
-        if (!result.success) {
-            setError(result.error.issues[0]?.message ?? "Invalid form data.");
-            return;
-        }
-
-        setStep(2);
-    };
-
-
-    const handleResendOTP = async () => {
-        try {
-            setResendLoading(true);
-
-            // Call your resend OTP API here
-            // await resendOTP();
-
-            // Optional: clear previous OTP
-            setOtp("");
-        } catch (error) {
-            console.error("Failed to resend OTP:", error);
-        } finally {
-            setResendLoading(false);
-        }
-    };
-
-    const buildPayload = (includeProfile: boolean) => {
-        const payload = {
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
-
-            ...(includeProfile && {
-                studentProfile: {
-                    ...(formData.studentProfile.programId && {
-                        programId: formData.studentProfile.programId,
-                    }),
-                    ...(formData.studentProfile.dateOfBirth && {
-                        dateOfBirth: formData.studentProfile.dateOfBirth,
-                    }),
-                    ...(formData.studentProfile.gender && {
-                        gender: formData.studentProfile.gender,
-                    }),
-                    ...(formData.studentProfile.phone && {
-                        phone: formData.studentProfile.phone,
-                    }),
-                    ...(formData.studentProfile.address && {
-                        address: formData.studentProfile.address,
-                    }),
-                    ...(formData.studentProfile.bloodGroup && {
-                        bloodGroup: formData.studentProfile.bloodGroup,
-                    }),
-                    ...(formData.studentProfile.guardianName && {
-                        guardianName: formData.studentProfile.guardianName,
-                    }),
-                    ...(formData.studentProfile.guardianPhone && {
-                        guardianPhone: formData.studentProfile.guardianPhone,
-                    }),
+                    router.push(`/register/verify-account?${params.toString()}`);
                 },
-            }),
-        };
 
-        return payload;
-    };
-
-
-    const handleSkip = () => {
-        setError("");
-
-        const result = accountSchema.safeParse({
-            name: formData.name,
-            email: formData.email,
-            password: formData.password,
-            confirmPassword: formData.confirmPassword,
-        });
-
-        if (!result.success) {
-            setError(result.error.issues[0]?.message ?? "Invalid form data.");
-            return;
-        }
-
-        const payload = buildPayload(false);
-
-        console.log("Register Payload:", payload);
-
-        // API call
-    };
-
-
-    const handleVerifyOTP = () => {
-        console.log("OTP:", otp);
-
-        // Call your OTP verification API here
-
-        // Example:
-        // await verifyOTP({ email: formData.email, otp });
-
-        // If successful:
-        // router.push("/dashboard");
-    };
-
-
-
-    const handleRegister = () => {
-        setError("");
-
-        const result = registerSchema.safeParse(formData);
-
-        if (!result.success) {
-            setError(result.error.issues[0]?.message ?? "Invalid form data.");
-            return;
-        }
-
-        const payload = buildPayload(true);
-
-        console.log("Register Payload:", payload);
-
-        setStep(3);
-
-        // API call
-
-
-    };
-
-
-
-
-
-
-
-
+                onError: (err) => {
+                    toast.add({
+                        title: "Registration Failed",
+                        description:
+                            err.message || "Something went wrong. Please try again",
+                        type: "error",
+                    });
+                },
+            });
+        },
+    });
 
 
 
 
 
     return (
-        <div
-            className={cn("flex flex-col gap-6", className)}
-            {...props}
-        >
+        <div className="flex flex-col gap-6">
             <Card className="overflow-hidden p-0">
                 <CardContent className="grid p-0 md:grid-cols-2">
                     <form
                         className="p-6 md:p-8"
-                        onSubmit={(e) => e.preventDefault()}
+                        onSubmit={(event) => {
+                            event.preventDefault();
+                            form.handleSubmit();
+                        }}
                     >
+
+                        {/* Header */}
+                        <div className="flex flex-col items-center gap-2 text-center">
+                            <h1 className="text-2xl font-bold">Welcome back</h1>
+
+                            <p className="text-balance text-muted-foreground">
+                                Login to your CampusFlow account
+                            </p>
+                        </div>
+
+
+
                         <FieldGroup>
-                            {/* =========================
-                                HEADER
-                            ========================== */}
+                            <form.Field name="name">
+                                {(field) => {
+                                    const isInvalid =
+                                        field.state.meta.isTouched && !field.state.meta.isValid;
 
-
-
-                            <div className="flex flex-col gap-2 text-center">
-                                <div className="mx-auto flex items-center gap-2 text-sm font-medium">
-                                    {/* Step 1 */}
-                                    <span
-                                        className={cn(
-                                            "flex size-7 items-center justify-center rounded-full text-xs",
-                                            step === 1
-                                                ? "bg-primary text-primary-foreground"
-                                                : "bg-muted text-muted-foreground"
-                                        )}
-                                    >
-                                        1
-                                    </span>
-
-                                    <span className="h-px w-8 bg-border" />
-
-                                    {/* Step 2 */}
-                                    <span
-                                        className={cn(
-                                            "flex size-7 items-center justify-center rounded-full text-xs",
-                                            step === 2
-                                                ? "bg-primary text-primary-foreground"
-                                                : "bg-muted text-muted-foreground"
-                                        )}
-                                    >
-                                        2
-                                    </span>
-
-                                    <span className="h-px w-8 bg-border" />
-
-                                    {/* Step 3 */}
-                                    <span
-                                        className={cn(
-                                            "flex size-7 items-center justify-center rounded-full text-xs",
-                                            step === 3
-                                                ? "bg-primary text-primary-foreground"
-                                                : "bg-muted text-muted-foreground"
-                                        )}
-                                    >
-                                        3
-                                    </span>
-                                </div>
-                                {
-                                    step === 1 && (
-                                        <>
-                                            <h1 className="text-2xl font-bold">Welcome to CampusFlow</h1>
-                                            <p className="text-balance text-muted-foreground">Create your CampusFlow account </p>
-
-                                        </>
-                                    )
-                                }
-
-
-                            </div>
-
-
-
-                            {/* =========================
-                                STEP 1
-                            ========================== */}
-                            {step === 1 && (
-                                <>
-                                    <Field>
-                                        <FieldLabel htmlFor="name">
-                                            Full Name
-                                        </FieldLabel>
-
-                                        <Input
-                                            id="name"
-                                            type="text"
-                                            placeholder="Your full name"
-                                            value={formData.name}
-                                            onChange={(e) =>
-                                                updateAccountField(
-                                                    "name",
-                                                    e.target.value
-                                                )
-                                            }
-                                            required
-                                        />
-                                    </Field>
-
-                                    <Field>
-                                        <FieldLabel htmlFor="email">
-                                            Email
-                                        </FieldLabel>
-
-                                        <Input
-                                            id="email"
-                                            type="email"
-                                            placeholder="yourname@example.com"
-                                            value={formData.email}
-                                            onChange={(e) =>
-                                                updateAccountField(
-                                                    "email",
-                                                    e.target.value
-                                                )
-                                            }
-                                            required
-                                        />
-                                    </Field>
-
-
-
-                                    <Field>
-                                        <FieldLabel htmlFor="password">
-                                            Password
-                                        </FieldLabel>
-                                        <div className="relative">
+                                    return (
+                                        <Field data-invalid={isInvalid}>
+                                            <FieldLabel htmlFor={field.name}>Name</FieldLabel>
                                             <Input
-                                                id="password"
-                                                type={showPassword ? "text" : "password"}
-                                                placeholder="••••••••"
-                                                value={formData.password}
-                                                onChange={(e) =>
-                                                    updateAccountField(
-                                                        "password",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                required
+                                                id={field.name}
+                                                name={field.name}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                value={field.state.value}
+                                                autoComplete="off"
+                                                aria-invalid={isInvalid}
                                             />
-                                            <button
-                                                className="absolute right-3 top-1/2 -translate-y-1/2"
-                                                type="button"
-                                                onClick={() => setShowPassword((prev) => !prev)}
-                                            >
-                                                {showPassword ? (
-                                                    <EyeClosed className="size-4" />
-                                                ) : (
-                                                    <Eye className="size-4" />
-                                                )}
-                                            </button>
+                                            {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                        </Field>
+                                    );
+                                }}
+                            </form.Field>
+                            <form.Field name="email">
+                                {(field) => {
+                                    const isInvalid =
+                                        field.state.meta.isTouched && !field.state.meta.isValid;
 
-                                        </div>
-                                    </Field>
-
-
-
-
-                                    <Field >
-                                        <FieldLabel htmlFor="confirmPassword">
-                                            Confirm Password
-                                        </FieldLabel>
-
-                                        <div className="relative">
+                                    return (
+                                        <Field data-invalid={isInvalid}>
+                                            <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                                             <Input
-                                                id="confirmPassword"
-                                                type={showConfirmPassword ? "text" : "password"}
-                                                placeholder="••••••••"
-                                                value={
-                                                    formData.confirmPassword
-                                                }
-                                                onChange={(e) =>
-                                                    updateAccountField(
-                                                        "confirmPassword",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                required
+                                                id={field.name}
+                                                name={field.name}
+                                                onChange={(e) => field.handleChange(e.target.value)}
+                                                onBlur={field.handleBlur}
+                                                value={field.state.value}
+                                                autoComplete="off"
+                                                aria-invalid={isInvalid}
                                             />
-                                            <button
-                                                className="absolute right-3 top-1/2 -translate-y-1/2"
-                                                type="button"
-                                                onClick={() => setShowConfirmPassword((prev) => !prev)}
-                                            >
-                                                {showConfirmPassword ? (
-                                                    <EyeClosed className="size-4" />
-                                                ) : (
-                                                    <Eye className="size-4" />
-                                                )}
-                                            </button>
+                                            {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                        </Field>
+                                    );
+                                }}
+                            </form.Field>
 
-                                        </div>
-                                    </Field>
-                                    
-                                    {error && (
-                                        <p className="text-sm text-destructive">
-                                            {error}
-                                        </p>
-                                    )}
+                            <form.Field name="password">
 
-                                    <Field>
-                                        <Button
-                                            type="button"
-                                            onClick={handleContinue}
-                                            className="w-full"
-                                        >
-                                            Continue
-                                        </Button>
-                                    </Field>
+                                {(field) => {
+                                    const isInvalid =
+                                        field.state.meta.isTouched && !field.state.meta.isValid;
 
-                                    <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-                                        Or continue with
-                                    </FieldSeparator>
-
-                                    <Field>
-                                        {/* Google Login */}
-                                        <GoogleLoginComponent />
-
-                                    </Field>
-                                </>
-                            )}
-
-                            {/* =========================
-                                STEP 2
-                            ========================== */}
-                            {step === 2 && (
-                                <StudentProfileForm
-                                    studentProfile={formData.studentProfile}
-                                    updateProfileField={updateProfileField}
-                                    handleSkip={handleSkip}
-                                    handleRegister={handleRegister}
-                                    handleBack={() => {
-                                        setError("");
-                                        setStep(1);
-                                    }}
-                                />
-
-                            )}
+                                    return (
+                                        <Field data-invalid={isInvalid}>
+                                            <FieldLabel htmlFor={field.name}>Password</FieldLabel>
 
 
-                            {/* =========================
-                                STEP 3
-                            ========================== */}
-
-                            {step === 3 && (
-
-                                <OTPForm
-                                    otp={otp}
-                                    setOtp={setOtp}
-                                    onVerify={handleVerifyOTP}
-                                    onResend={handleResendOTP}
-                                    handleBack={() => {
-                                        setError("");
-                                        setStep(2);
-                                    }}
-                                    loading={loading}
-                                    resendLoading={resendLoading}
-                                />
-                            )}
+                                            {/* <div className="mb-2 flex items-center">
 
 
-                            {/* LOGIN LINK */}
+                                                <Link
+                                                    href="/forgot-password"
+                                                    className="ml-auto text-sm underline-offset-2 hover:underline"
+                                                >
+                                                    Forgot your password?
+                                                </Link>
+                                            </div> */}
+
+
+                                            <div className="relative">
+                                                <Input
+                                                    id={field.name}
+                                                    name={field.name}
+                                                    type={showPassword ? "text" : "password"}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                    onBlur={field.handleBlur}
+                                                    value={field.state.value}
+                                                    autoComplete="off"
+                                                    aria-invalid={isInvalid}
+                                                />
+                                                <button
+                                                    className="absolute right-3 top-1/2 -translate-y-1/2"
+                                                    type="button"
+                                                    onClick={() => setShowPassword((prev) => !prev)}
+                                                >
+                                                    {showPassword ? (
+                                                        <EyeClosed className="size-4" />
+                                                    ) : (
+                                                        <Eye className="size-4" />
+                                                    )}
+                                                </button>
+                                            </div>
+                                            {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                        </Field>
+                                    );
+                                }}
+                            </form.Field>
+
+                            <form.Field name="confirmPassword">
+
+                                {(field) => {
+                                    const isInvalid =
+                                        field.state.meta.isTouched && !field.state.meta.isValid;
+
+                                    return (
+                                        <Field data-invalid={isInvalid}>
+
+                                            <div className="mb-2 flex items-center">
+
+                                                <FieldLabel htmlFor={field.name}>Confirm Password</FieldLabel>
+
+                                                {/* <Link
+                                                    href="/forgot-password"
+                                                    className="ml-auto text-sm underline-offset-2 hover:underline"
+                                                >
+                                                    Forgot your password?
+                                                </Link> */}
+                                            </div>
+                                            <div className="relative">
+                                                <Input
+                                                    id={field.name}
+                                                    name={field.name}
+                                                    type={showConfirmPassword ? "text" : "password"}
+                                                    onChange={(e) => field.handleChange(e.target.value)}
+                                                    onBlur={field.handleBlur}
+                                                    value={field.state.value}
+                                                    autoComplete="off"
+                                                    aria-invalid={isInvalid}
+                                                />
+                                                <button
+                                                    className="absolute right-3 top-1/2 -translate-y-1/2"
+                                                    type="button"
+                                                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                                                >
+                                                    {showConfirmPassword ? (
+                                                        <EyeClosed className="size-4" />
+                                                    ) : (
+                                                        <Eye className="size-4" />
+                                                    )}
+                                                </button>
+                                            </div>
+                                            {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                                        </Field>
+                                    );
+                                }}
+                            </form.Field>
+
+                            <Button disabled={registrationPending} type="submit">
+                                {registrationPending ? (
+                                    <>
+                                        <Spinner /> Submitting
+                                    </>
+                                ) : (
+                                    "Submit"
+                                )}
+                            </Button>
+
+                            {/* Separator */}
+                            <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
+                                Or continue with
+                            </FieldSeparator>
+
+                            {/* Google Login */}
+                            <GoogleLoginComponent />
+
+                            {/* Register Link */}
                             <FieldDescription className="text-center">
-                                Already have an account?{" "}
+                                Already have an account? {" "}
                                 <Link
                                     href="/login"
-                                    className="font-medium underline underline-offset-4"
+                                    className="underline-offset-2 hover:underline"
                                 >
-                                    Sign in
+                                    Login
                                 </Link>
                             </FieldDescription>
+
                         </FieldGroup>
+
                     </form>
 
-                    {/* IMAGE */}
+                    {/* Login Image */}
                     <div className="relative hidden bg-muted md:block">
                         <Image
                             width={700}
                             height={700}
                             src="/images/login-image.jpg"
-                            alt="CampusFlow"
+                            alt="Login Image"
                             className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
                         />
                     </div>
                 </CardContent>
             </Card>
 
+            {/* Terms */}
             <FieldDescription className="px-6 text-center">
                 By clicking continue, you agree to our{" "}
-                <Link href="/terms">Terms of Service</Link>{" "}
+                <Link
+                    href="/terms"
+                    className="underline-offset-2 hover:underline"
+                >
+                    Terms of Service
+                </Link>{" "}
                 and{" "}
-                <Link href="/privacy-policy">
+                <Link
+                    href="/privacy-policy"
+                    className="underline-offset-2 hover:underline"
+                >
                     Privacy Policy
                 </Link>
                 .
@@ -536,17 +323,6 @@ export function RegisterForm({
         </div>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
