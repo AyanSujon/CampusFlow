@@ -15,3 +15,9 @@ export interface UserRegistrationPayload {
     guardianPhone?: string;
   };
 }
+
+
+export interface verifyUserAccountPayload {
+  email: string;
+  otp: string; 
+}

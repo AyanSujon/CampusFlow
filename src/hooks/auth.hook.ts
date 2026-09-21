@@ -1,6 +1,6 @@
 // "use server";
 
-import { getMe, googleOAuth, userLogin, userLogout, userRegistration } from "@/api";
+import { getMe, googleOAuth, resendOTP, userLogin, userLogout, userRegistration, verifyUserAccount } from "@/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useLogin(){
@@ -13,6 +13,18 @@ export function useLogin(){
 export function useRegistration(){
     return useMutation({
         mutationFn: userRegistration,
+    })
+}
+
+export function useVerifyUserAccount(){
+    return useMutation({
+        mutationFn: verifyUserAccount,
+    })
+}
+
+export function useResendOTP(){
+    return useMutation({
+        mutationFn: resendOTP,
     })
 }
 

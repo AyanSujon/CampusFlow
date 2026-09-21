@@ -44,7 +44,7 @@ export default function VerifyAccountPage() {
           <Link href="/" className="flex items-center gap-2 font-medium">
             <div className="flex items-center gap-2">
               {/* <Logo /> */}
-              <span>PH Healthcare</span>
+              <span>CampusFlow</span>
             </div>
           </Link>
         </div>
@@ -56,13 +56,13 @@ export default function VerifyAccountPage() {
           </div>
         </div>
       </div>
-      <div className="relative hidden bg-muted lg:block">
+      {/* <div className="relative hidden bg-muted lg:block">
         <Image
           src="/images/login-image.jpg"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
-      </div>
+      </div> */}
     </div>
   );
 }
