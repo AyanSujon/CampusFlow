@@ -1,19 +1,51 @@
+// import React from 'react'
+
+// export default function RoleGuard() {
+//   return (
+//     <div>RoleGuard</div>
+//   )
+// }
+
+
+
+
+
+
+
+
+
 "use client";
 
 import { useGetMe } from '@/hooks/auth.hook'
 import { useRouter } from 'next/navigation';
 import React, { ReactNode, useEffect } from 'react'
 import AuthLoading from './auth-loading';
+import { UserRole } from '@/types';
+import AccessDenied from './access-denied';
 
-export default function AuthGuard({ children }: { children: ReactNode }) {
+
+interface IProps {
+  children: ReactNode,
+  roles: UserRole[]
+}
+
+export default function RoleGuard({ children, roles }: IProps) {
   const router = useRouter();
 
   const { data, isPending, isError } = useGetMe();
 
-  const user = data;
+  const user = data.data;
 
+  const isAuthorized = !!user && roles.includes(user.role);
 
-  console.log(user);
+console.log("RoleGuard Debug:", {
+  user,
+  userRole: user?.role,
+  allowedRoles: roles,
+  isAuthorized,
+});
+
+  // console.log(user);
 
   useEffect(() => {
     // Wait until authentication request is completed
@@ -34,8 +66,13 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
     return <AuthLoading label='Redirecting...' />;
   }
 
+
+  if(isAuthorized){
+    return <>{children}</>;
+  }
+
   return (
-    <>{children}</>
+   <AccessDenied/>
   )
 }
 

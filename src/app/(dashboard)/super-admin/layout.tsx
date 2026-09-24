@@ -1,7 +1,8 @@
+import RoleGuard from '@/components/auth/role-guard'
 import React, { ReactNode } from 'react'
 
 export default function SuperAdminLayout({children}: {children: ReactNode}) {
   return (
-    <div>SuperAdminLayout {children}</div>
+    <RoleGuard roles={["SUPER_ADMIN"]}>SuperAdminLayout {children}</RoleGuard>
   )
 }

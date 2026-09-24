@@ -1,0 +1,4 @@
+
+
+
+export type UserRole = "SUPER_ADMIN" | "ADMIN" | "DEPARTMENT_HEAD" | "INSTRUCTOR" | "STUDENT" | "ACCOUNTANT";
