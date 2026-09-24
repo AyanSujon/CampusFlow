@@ -171,8 +171,9 @@ import {
 } from "@/components/ui/sidebar"
 import { DeshboardItems } from "./deshboard-items"
 import { DeshboardUser } from "./deshboard-user"
-import { UserRole } from "@/types"
+import { SidebarItems, UserRole } from "@/types"
 import { accountantRoutes, adminRoutes, departmentHeadRoutes, instructorRoutes, studentRoutes, superAdminRoutes } from "@/routes"
+
 
 // This is sample data.
 const data = {
@@ -271,20 +272,25 @@ const data = {
 }
 
 
-const sidebarRoutes = {
+const sidebarRoutes : Record<UserRole, SidebarItems>  = {
   SUPER_ADMIN: superAdminRoutes,
   ADMIN: adminRoutes,
   DEPARTMENT_HEAD: departmentHeadRoutes,
   INSTRUCTOR: instructorRoutes,
   STUDENT: studentRoutes,
   ACCOUNTANT: accountantRoutes
-}
+};
 
 
 
 
 
 export function DeshboardSidebar({role}: {role: UserRole}) {
+  const routes: SidebarItems = sidebarRoutes[role] || [];
+
+
+
+  
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
