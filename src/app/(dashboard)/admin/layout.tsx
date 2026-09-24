@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 export default function AdminLayout({children}:{children: ReactNode}) {
   return (
     <RoleGuard roles={["ADMIN"]}>
-    <DeshboardShell>
+    <DeshboardShell role="ADMIN">
      {children}
 
     </DeshboardShell>

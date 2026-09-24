@@ -1,32 +1,37 @@
-You are a senior product designer and full-stack architect designing the dashboard navigation for **CampusFlow**, a production-ready University Management System.
+I am building **CampusFlow**, a University Management System using Next.js, TypeScript, Tailwind CSS, shadcn/ui, and role-based access control.
 
-Create a realistic, scalable dashboard sidebar/navigation route structure based strictly on the university-management features and roles described below.
+I need you to generate **separate sidebar navigation data for each user role**.
 
-## CampusFlow Context
+The navigation structure must follow this exact style:
 
-CampusFlow is a university management platform that manages:
+```ts
+navMain: [
+  {
+    title: "Playground",
+    url: "#",
+    icon: SquareTerminal,
+    isActive: true,
+    items: [
+      {
+        title: "History",
+        url: "#",
+      },
+      {
+        title: "Starred",
+        url: "#",
+      },
+      {
+        title: "Settings",
+        url: "#",
+      },
+    ],
+  },
+]
+```
 
-* Users and authentication
-* Students
-* Instructors
-* Faculties
-* Departments
-* Academic programs
-* Courses
-* Subjects
-* Course enrollment
-* Academic terms/semesters
-* Class schedules
-* Attendance
-* Exams and grades
-* Student academic records
-* Fees and invoices
-* Payments
-* Notifications
-* University organization
-* Role-based access control
+## CampusFlow Roles
 
-Current roles:
+The system has exactly these roles:
 
 * SUPER_ADMIN
 * ADMIN
@@ -37,45 +42,32 @@ Current roles:
 
 There is NO DEAN role.
 
-## Task
+---
 
-Design the dashboard route/navigation items for each role.
+# Important Requirements
 
-The navigation must be:
+Generate **6 completely separate `navMain` configurations**, one for each role.
 
-1. Realistic for a university management system
-2. Relevant to the user's role
-3. Free from unnecessary generic SaaS menu items
-4. Scalable for future features
-5. Organized into logical sidebar groups
-6. Suitable for a Next.js App Router application
-7. Compatible with role-based route protection
-8. Easy to implement using a reusable navigation configuration
-9. Clear enough for both developers and users
+Do NOT create one huge navigation configuration and filter it afterward.
 
-## Required Dashboard Structure
+I want:
 
-Create navigation groups such as:
+1. SUPER_ADMIN `navMain`
+2. ADMIN `navMain`
+3. DEPARTMENT_HEAD `navMain`
+4. INSTRUCTOR `navMain`
+5. STUDENT `navMain`
+6. ACCOUNTANT `navMain`
 
-* Overview
-* Academic
-* Students
-* Faculty / Staff
-* Organization
-* Finance
-* Communication
-* Administration
-* Account / Settings
+Each role must only contain navigation items that are actually relevant to that role.
 
-Do NOT blindly include every group for every role. Only show groups that are genuinely relevant to that role.
+Do not show irrelevant administrative features to students or instructors.
 
-## Role Requirements
+---
 
-### SUPER_ADMIN
+# CampusFlow Core Features
 
-The SUPER_ADMIN should have university-wide management access.
-
-Consider routes such as:
+CampusFlow is a university management system containing these modules:
 
 * Dashboard
 * Users
@@ -92,18 +84,290 @@ Consider routes such as:
 * Attendance
 * Exams
 * Grades
+* Academic Transcript
 * Invoices
 * Payments
-* Reports
+* Transactions
+* Financial Reports
+* Academic Reports
 * Notifications
+* Profile
+* Settings
 * Audit Logs
 * System Settings
 
-### ADMIN
+Some features may be nested under logical parent categories.
 
-ADMIN should manage day-to-day university operations but should not necessarily have the same system-level controls as SUPER_ADMIN.
+---
 
-Consider:
+# Navigation Design Rules
+
+## 1. Use realistic university terminology
+
+Use labels such as:
+
+* Students
+* Faculty
+* Departments
+* Programs
+* Courses
+* Subjects
+* Enrollments
+* Academic Terms
+* Class Schedule
+* Attendance
+* Exams
+* Grades
+* Transcript
+* Invoices
+* Payments
+* Reports
+
+Do NOT use generic SaaS items such as:
+
+* Playground
+* Models
+* Workspace
+* Projects
+* CRM
+* Team
+* Billing
+
+unless the feature genuinely exists in CampusFlow.
+
+---
+
+# 2. Organize navigation into logical groups
+
+For example:
+
+```ts
+{
+  title: "Academic",
+  url: "/dashboard/academic",
+  icon: BookOpen,
+  items: [
+    {
+      title: "Courses",
+      url: "/dashboard/courses",
+    },
+    {
+      title: "Subjects",
+      url: "/dashboard/subjects",
+    },
+  ],
+}
+```
+
+Possible parent groups include:
+
+* Overview
+* Academic
+* Students
+* Faculty
+* Organization
+* Finance
+* Reports
+* Communication
+* Administration
+* Account
+
+Do not force every group into every role.
+
+---
+
+# 3. Dashboard should be the first item
+
+Every role should have:
+
+```ts
+{
+  title: "Dashboard",
+  url: "/dashboard",
+  icon: LayoutDashboard,
+  isActive: true,
+}
+```
+
+Dashboard does NOT need children unless there is a strong reason.
+
+---
+
+# 4. Use nested items intelligently
+
+For example:
+
+```ts
+{
+  title: "Academic",
+  url: "/dashboard/academic",
+  icon: BookOpen,
+  items: [
+    {
+      title: "Programs",
+      url: "/dashboard/programs",
+    },
+    {
+      title: "Courses",
+      url: "/dashboard/courses",
+    },
+    {
+      title: "Subjects",
+      url: "/dashboard/subjects",
+    },
+    {
+      title: "Enrollments",
+      url: "/dashboard/enrollments",
+    },
+  ],
+}
+```
+
+Avoid unnecessarily deep nesting.
+
+Maximum recommended nesting:
+
+Parent → Child
+
+Do not create:
+
+Parent → Child → Grandchild → Great Grandchild
+
+unless absolutely necessary.
+
+---
+
+# 5. Routes must be realistic
+
+Use routes such as:
+
+```text
+/dashboard
+/dashboard/students
+/dashboard/instructors
+/dashboard/faculties
+/dashboard/departments
+/dashboard/programs
+/dashboard/courses
+/dashboard/subjects
+/dashboard/academic-terms
+/dashboard/enrollments
+/dashboard/schedules
+/dashboard/attendance
+/dashboard/exams
+/dashboard/grades
+/dashboard/transcript
+/dashboard/invoices
+/dashboard/payments
+/dashboard/transactions
+/dashboard/reports
+/dashboard/notifications
+/dashboard/profile
+/dashboard/settings
+/dashboard/audit-logs
+```
+
+Do not use `#`.
+
+Every URL should be a realistic CampusFlow route.
+
+---
+
+# 6. Use Lucide React icons
+
+Use appropriate Lucide icons.
+
+Examples:
+
+```ts
+LayoutDashboard
+Users
+GraduationCap
+UserRoundCheck
+Building2
+School
+Library
+BookOpen
+CalendarDays
+ClipboardCheck
+FileQuestion
+ChartNoAxesColumn
+Receipt
+CreditCard
+WalletCards
+BarChart3
+Bell
+Settings2
+ShieldCheck
+ScrollText
+User
+```
+
+Do not import icons from other icon libraries.
+
+---
+
+# ROLE 1 — SUPER_ADMIN
+
+SUPER_ADMIN has university-wide system management responsibilities.
+
+Include relevant navigation for:
+
+### Overview
+
+* Dashboard
+
+### University Management
+
+* Users
+* Students
+* Instructors
+* Faculties
+* Departments
+* Programs
+
+### Academic Management
+
+* Academic Terms
+* Courses
+* Subjects
+* Enrollments
+* Class Schedules
+* Attendance
+* Exams
+* Grades
+
+### Finance
+
+* Invoices
+* Payments
+* Transactions
+* Financial Reports
+
+### Reports
+
+* Academic Reports
+* Student Reports
+* Financial Reports
+
+### Communication
+
+* Notifications
+
+### Administration
+
+* Audit Logs
+* System Settings
+
+Create a clean sidebar hierarchy instead of putting everything at the top level.
+
+---
+
+# ROLE 2 — ADMIN
+
+ADMIN manages normal university operations.
+
+Include relevant access to:
 
 * Dashboard
 * Students
@@ -111,304 +375,301 @@ Consider:
 * Faculties
 * Departments
 * Programs
+* Academic Terms
 * Courses
 * Subjects
-* Academic Terms
 * Enrollments
-* Class Schedules
+* Schedules
 * Attendance
 * Exams
 * Grades
-* Finance overview
 * Invoices
 * Payments
 * Reports
 * Notifications
 * Settings
 
-### DEPARTMENT_HEAD
+Do NOT give ADMIN unnecessary SUPER_ADMIN-only system controls such as Audit Logs if those are intended to be system-level.
 
-DEPARTMENT_HEAD should primarily manage their own department.
+---
 
-Consider:
+# ROLE 3 — DEPARTMENT_HEAD
+
+DEPARTMENT_HEAD manages their own academic department.
+
+Navigation should focus on:
+
+### Overview
 
 * Dashboard
 * Department Overview
-* Students
-* Instructors
+
+### Students
+
+* Department Students
+
+### Faculty
+
+* Department Instructors
+
+### Academic
+
 * Programs
 * Courses
 * Subjects
 * Course Assignments
-* Class Schedules
 * Enrollments
+* Class Schedules
 * Attendance
 * Exams
 * Grades
+
+### Reports
+
 * Academic Reports
+* Student Performance
+
+### Communication
+
 * Notifications
-* Profile / Settings
 
-The UI should avoid exposing university-wide administrative controls that are outside their department.
+### Account
 
-### INSTRUCTOR
+* Profile
+* Settings
 
-INSTRUCTOR should focus on teaching and student academic management.
+Do NOT include:
 
-Consider:
+* User Management
+* University-wide system settings
+* Audit Logs
+* Financial administration
+* Payment processing
+
+unless there is a strong university-management reason.
+
+---
+
+# ROLE 4 — INSTRUCTOR
+
+INSTRUCTOR is primarily responsible for teaching and managing their assigned students/courses.
+
+Navigation should include:
+
+### Overview
 
 * Dashboard
+
+### Teaching
+
 * My Courses
 * My Classes
 * Class Schedule
-* Students
+
+### Students
+
+* My Students
+
+### Academic
+
 * Attendance
 * Exams
 * Grades
 * Course Materials
+
+### Academic Information
+
 * Academic Calendar
+
+### Communication
+
 * Notifications
-* Profile / Settings
 
-Avoid showing administrative modules such as user management, faculty management, payments, or system settings.
+### Account
 
-### STUDENT
+* Profile
+* Settings
 
-STUDENT should have a simple student-focused dashboard.
+Do NOT include:
 
-Consider:
+* Users
+* Faculties
+* Departments
+* Programs management
+* Finance
+* Invoices
+* Payments
+* System Settings
+* Audit Logs
+
+---
+
+# ROLE 5 — STUDENT
+
+STUDENT should have a simple and student-focused navigation.
+
+Include:
+
+### Overview
 
 * Dashboard
-* My Profile
+
+### My Academics
+
 * My Program
 * My Courses
-* Course Registration / Enrollment
+* Course Registration
 * Class Schedule
 * Attendance
 * Exams
 * Results / Grades
 * Academic Transcript
-* Fees / Invoices
-* Payments
-* Notifications
+
+### Finance
+
+* My Invoices
+* Payment History
+* Make Payment
+
+### University
+
 * Academic Calendar
+* Notifications
+
+### Account
+
+* My Profile
 * Settings
 
-The student navigation should prioritize the student's daily academic tasks.
+Do NOT expose administrative navigation.
 
-### ACCOUNTANT
+The student should only see information and actions relevant to their own account.
 
-ACCOUNTANT should focus on university financial operations.
+---
 
-Consider:
+# ROLE 6 — ACCOUNTANT
+
+ACCOUNTANT focuses on university financial management.
+
+Include:
+
+### Overview
 
 * Dashboard
+
+### Students
+
 * Students
+
+### Finance
+
 * Invoices
 * Payments
 * Transactions
 * Outstanding Fees
 * Payment History
+
+### Reports
+
 * Financial Reports
+* Revenue Reports
+* Outstanding Fees Report
+
+### Communication
+
 * Notifications
-* Profile / Settings
 
-Do not expose academic administration that is unrelated to accounting.
+### Account
 
-## Important Design Rules
+* Profile
+* Settings
 
-### 1. Use nested routes where appropriate
+Do NOT include:
 
-For example:
-
-/dashboard
-/dashboard/students
-/dashboard/students/[id]
-/dashboard/instructors
-/dashboard/faculties
-/dashboard/departments
-/dashboard/programs
-/dashboard/courses
-/dashboard/subjects
-/dashboard/enrollments
-/dashboard/schedules
-/dashboard/attendance
-/dashboard/exams
-/dashboard/grades
-/dashboard/invoices
-/dashboard/payments
-/dashboard/reports
-/dashboard/settings
-
-Use logical nested routes rather than creating unnecessarily deep routes.
-
-### 2. Avoid duplicate navigation
-
-Do not create separate menu items for things that should be sub-pages.
-
-For example:
-
-Instead of:
-
-* Courses
-* Course Details
-* Course Subjects
-* Course Students
-
-Use:
-
-Courses
-├── All Courses
-├── Subjects
-└── Enrollments
-
-### 3. Use real university terminology
-
-Prefer:
-
-* Academic Terms
-* Programs
-* Departments
-* Courses
-* Subjects
-* Enrollments
-* Attendance
+* Course management
+* Subject management
 * Exams
 * Grades
-* Transcript
-* Invoices
-* Payments
+* Attendance management
+* System administration
+* Audit Logs
 
-Avoid generic SaaS terminology such as:
+unless absolutely necessary.
 
-* Workspace
-* Projects
-* Tasks
-* CRM
-* Team
-* Pipeline
+---
 
-unless there is an actual CampusFlow feature supporting it.
+# Output Requirements
 
-### 4. Role-based navigation
+Return ONLY the navigation configurations.
 
-The frontend navigation must NOT be the only security layer.
+Do not generate React components.
 
-The final architecture should assume:
+Do not generate sidebar components.
 
-* Frontend navigation hides unauthorized routes
-* Route guards protect dashboard pages
-* Backend authorization independently validates permissions
-* Users cannot access restricted APIs simply by manually entering a URL
+Do not generate permission middleware.
 
-### 5. Navigation configuration
+Do not generate API code.
 
-Design the result so it can eventually be represented by a TypeScript configuration similar to:
+Do not generate explanations.
+
+Generate six separate sections.
+
+Use this exact structure:
 
 ```ts
-type DashboardNavItem = {
-  title: string
-  href: string
-  icon: React.ComponentType
-  roles: UserRole[]
-  children?: DashboardNavItem[]
-}
+// SUPER_ADMIN
+export const superAdminNavMain = [
+  // navigation
+]
+
+// ADMIN
+export const adminNavMain = [
+  // navigation
+]
+
+// DEPARTMENT_HEAD
+export const departmentHeadNavMain = [
+  // navigation
+]
+
+// INSTRUCTOR
+export const instructorNavMain = [
+  // navigation
+]
+
+// STUDENT
+export const studentNavMain = [
+  // navigation
+]
+
+// ACCOUNTANT
+export const accountantNavMain = [
+  // navigation
+]
 ```
 
-Do not hardcode navigation separately inside every sidebar component.
+Use actual Lucide icon references such as:
 
-### 6. Icons
+```ts
+icon: LayoutDashboard
+```
 
-Recommend appropriate icons for each navigation item using Lucide React icons.
-
-Use semantically accurate icons.
-
-Examples:
-
-* Dashboard → LayoutDashboard
-* Students → GraduationCap
-* Instructors → UserRoundCheck
-* Departments → Building2
-* Programs → Library
-* Courses → BookOpen
-* Schedule → CalendarDays
-* Attendance → ClipboardCheck
-* Exams → FileQuestion
-* Grades → ChartNoAxesColumn
-* Invoices → Receipt
-* Payments → CreditCard
-* Reports → BarChart3
-* Notifications → Bell
-* Settings → Settings2
-
-### 7. Output format
-
-Return the result in this exact structure:
-
-## 1. Global Route Architecture
-
-Show the complete route hierarchy.
-
-## 2. SUPER_ADMIN Navigation
-
-Show grouped sidebar items with:
-
-* Label
-* Route
-* Icon
-* Purpose
-
-## 3. ADMIN Navigation
-
-Same format.
-
-## 4. DEPARTMENT_HEAD Navigation
-
-Same format.
-
-## 5. INSTRUCTOR Navigation
-
-Same format.
-
-## 6. STUDENT Navigation
-
-Same format.
-
-## 7. ACCOUNTANT Navigation
-
-Same format.
-
-## 8. Shared Routes
-
-Identify routes that can be shared between multiple roles.
-
-## 9. Role Permission Matrix
-
-Create a matrix showing which roles can access each major module.
+Do not put icon names inside strings.
 
 Use:
 
-* Full Access
-* Manage
-* Read
-* Own Data
-* No Access
+```ts
+url: "/dashboard/students"
+```
 
-Do not assign permissions arbitrarily. Keep them consistent with the responsibilities of each role.
+not:
 
-## 10. Recommended TypeScript Navigation Config
+```ts
+url: "#"
+```
 
-Finally, generate a clean production-ready TypeScript navigation configuration that supports:
+Use `isActive: true` ONLY for the Dashboard item of each role.
 
-* Role-based visibility
-* Nested navigation
-* Icons
-* Active route detection
-* Future permission-based access
-* Type safety
+Make the navigation production-ready, clean, minimal, realistic, and easy to maintain.
 
-Keep the architecture simple enough to integrate into a Next.js App Router + shadcn/ui dashboard.
-
-Important:
-
-Do not invent features that are not reasonably expected in a university management system. If a feature is optional, clearly mark it as optional instead of treating it as a core CampusFlow feature.
+The final result should look like a real university ERP / University Management System sidebar, not a generic admin dashboard.
