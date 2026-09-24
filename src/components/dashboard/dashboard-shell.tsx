@@ -10,10 +10,10 @@ import { DeshboardSidebar } from "./dashboard-sidebar"
 import { ReactNode } from "react"
 import { UserRole } from "@/types"
 
-export default function DeshboardShell({children, Role}: {children: ReactNode, Role: UserRole}) {
+export default function DeshboardShell({children, role}: {children: ReactNode, role: UserRole}) {
   return (
     <SidebarProvider>
-      <DeshboardSidebar Role={Role} />
+      <DeshboardSidebar role={role} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
