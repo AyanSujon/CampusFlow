@@ -1038,11 +1038,11 @@ export default function HeaderPublic() {
               ================================================= */}
           <div className="hidden items-center gap-3 lg:flex">
 
-                 {/* === Theme Switcher (Dropdown) === */}
+            {/* === Theme Switcher (Dropdown) === */}
             <ThemeSwitcher />
 
             {/* Login */}
-            
+
 
             {
               !isLoading && !data && (
@@ -1114,6 +1114,9 @@ export default function HeaderPublic() {
           {/* =================================================
               MOBILE / TABLET MENU BUTTON
               ================================================= */}
+          {/* === Theme Switcher (Dropdown) === */}
+          <div className="ml-auto"><ThemeSwitcher /></div>
+
           <button
             type="button"
             aria-label={
