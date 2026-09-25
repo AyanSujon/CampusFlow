@@ -729,7 +729,7 @@ import { toast } from "@/components/ui/toast";
 import { useQueryClient } from "@tanstack/react-query";
 import Logo from "@/components/shared/logo/logo";
 import UserMenu from "@/components/shared/user-menu";
-import { UserRole } from "@/types";
+import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
 
 
 const routes = [
@@ -775,15 +775,6 @@ const routes = [
 
 
 
-const dashboardRoute: Record<UserRole, string> = {
-  SUPER_ADMIN: "/super-admin",
-  ADMIN: "/admin",
-  DEPARTMENT_HEAD: "/department-head",
-  INSTRUCTOR: "/instructor",
-  STUDENT: "/student",
-  ACCOUNTANT: "/accountant"
-};
-
 
 
 
@@ -799,8 +790,6 @@ export default function HeaderPublic() {
   const queryClient = useQueryClient();
 
 
-  const role : UserRole = !!data?.data && data?.data.role;
-  // console.log(role , "user role")
 
   const handleLogout = () => {
 
@@ -1049,7 +1038,11 @@ export default function HeaderPublic() {
               ================================================= */}
           <div className="hidden items-center gap-3 lg:flex">
 
+                 {/* === Theme Switcher (Dropdown) === */}
+            <ThemeSwitcher />
+
             {/* Login */}
+            
 
             {
               !isLoading && !data && (
