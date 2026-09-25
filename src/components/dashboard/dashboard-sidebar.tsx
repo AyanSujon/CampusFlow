@@ -235,9 +235,9 @@ const sidebarRoutes: Record<UserRole, SidebarItems> = {
 
 
 
-export function DeshboardSidebar({ role }: { role: UserRole }) {
+export function DeshboardSidebar({ userRole }: { userRole: UserRole }) {
   const pathname = usePathname();
-  const routes: SidebarItems = sidebarRoutes[role] || [];
+  const routes: SidebarItems = sidebarRoutes[userRole] || [];
 
   console.log(pathname);
 

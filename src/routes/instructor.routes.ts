@@ -14,62 +14,61 @@ import {
 export const instructorRoutes = [
   {
     title: "Dashboard",
-    url: "/dashboard",
+    url: "/instructor",
     icon: LayoutDashboard,
-    isActive: true,
   },
   {
     title: "Teaching",
-    url: "/dashboard/courses",
+    url: "/instructor/courses",
     icon: BookOpen,
     items: [
-      { title: "My Courses", url: "/dashboard/courses" },
-      { title: "My Classes", url: "/dashboard/classes" },
-      { title: "Class Schedule", url: "/dashboard/schedules" },
+      { title: "My Courses", url: "/instructor/courses" },
+      { title: "My Classes", url: "/instructor/classes" },
+      { title: "Class Schedule", url: "/instructor/schedules" },
     ],
   },
   {
     title: "Students",
-    url: "/dashboard/students",
+    url: "/instructor/students",
     icon: GraduationCap,
     items: [
-      { title: "My Students", url: "/dashboard/students" },
+      { title: "My Students", url: "/instructor/students" },
     ],
   },
   {
     title: "Academic",
-    url: "/dashboard/attendance",
+    url: "/instructor/attendance",
     icon: ClipboardCheck,
     items: [
-      { title: "Attendance", url: "/dashboard/attendance" },
-      { title: "Exams", url: "/dashboard/exams" },
-      { title: "Grades", url: "/dashboard/grades" },
-      { title: "Course Materials", url: "/dashboard/materials" },
+      { title: "Attendance", url: "/instructor/attendance" },
+      { title: "Exams", url: "/instructor/exams" },
+      { title: "Grades", url: "/instructor/grades" },
+      { title: "Course Materials", url: "/instructor/materials" },
     ],
   },
   {
     title: "Academic Information",
-    url: "/dashboard/calendar",
+    url: "/instructor/calendar",
     icon: School,
     items: [
-      { title: "Academic Calendar", url: "/dashboard/calendar" },
+      { title: "Academic Calendar", url: "/instructor/calendar" },
     ],
   },
   {
     title: "Communication",
-    url: "/dashboard/notifications",
+    url: "/instructor/notifications",
     icon: Bell,
     items: [
-      { title: "Notifications", url: "/dashboard/notifications" },
+      { title: "Notifications", url: "/instructor/notifications" },
     ],
   },
   {
     title: "Account",
-    url: "/dashboard/profile",
+    url: "/instructor/profile",
     icon: Settings2,
     items: [
-      { title: "Profile", url: "/dashboard/profile" },
-      { title: "Settings", url: "/dashboard/settings" },
+      { title: "Profile", url: "/instructor/profile" },
+      { title: "Settings", url: "/instructor/settings" },
     ],
   },
 ]
