@@ -1,4 +1,5 @@
 
+import Logo from "@/components/shared/logo/logo";
 import Link from "next/link";
 import React from "react";
 
@@ -94,7 +95,9 @@ export default function FooterPublic() {
               ================================================= */}
           <div className="sm:col-span-2 lg:col-span-4">
             {/* Logo */}
-            <Link
+
+            <Logo/>
+            {/* <Link
               href="/"
               className="
                 inline-block
@@ -106,7 +109,7 @@ export default function FooterPublic() {
             >
               Campus
               <span className="text-accent">Flow</span>
-            </Link>
+            </Link> */}
 
             {/* Description */}
             <p

@@ -215,6 +215,7 @@ import { SidebarItems, UserRole } from "@/types"
 import { accountantRoutes, adminRoutes, departmentHeadRoutes, instructorRoutes, studentRoutes, superAdminRoutes } from "@/routes"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import Logo from "../shared/logo/logo"
 
 const user = {
   name: "shadcn",
@@ -245,7 +246,7 @@ export function DeshboardSidebar({ userRole }: { userRole: UserRole }) {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <p>Logo</p>
+        <Logo/>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
