@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useGetMe } from "@/hooks/auth.hook";
+import { UserRole } from "@/types";
 
 function getInitials(name?: string | null) {
   if (!name) return "U";
@@ -59,6 +60,24 @@ type UserMenuProps = {
   isLoggingOut?: boolean;
 };
 
+
+const dashboardRoute: Record<UserRole, string> = {
+  SUPER_ADMIN: "/super-admin",
+  ADMIN: "/admin",
+  DEPARTMENT_HEAD: "/department-head",
+  INSTRUCTOR: "/instructor",
+  STUDENT: "/student",
+  ACCOUNTANT: "/accountant"
+};
+
+
+
+
+
+
+
+
+
 export default function UserMenu(
   {
     onLogout,
@@ -69,7 +88,9 @@ export default function UserMenu(
 
   const { data: user, isLoading } = useGetMe();
 
-  console.log(user)
+   const roleForDeshboard : UserRole = !!user?.data && user?.data.role;
+    // console.log(role , "user role")
+
 
   /*
    * Loading state
@@ -185,7 +206,7 @@ export default function UserMenu(
           ================================================ */}
           <DropdownMenuItem
             render={
-              <Link href="/profile">
+              <Link href={`${dashboardRoute[roleForDeshboard]}/profile`}>
                 <User />
                 <span>Profile</span>
               </Link>
@@ -197,7 +218,7 @@ export default function UserMenu(
           ================================================ */}
           <DropdownMenuItem
             render={
-              <Link href="/dashboard">
+              <Link href={dashboardRoute[roleForDeshboard]}>
                 <LayoutDashboard />
                 <span>Dashboard</span>
               </Link>
@@ -209,7 +230,7 @@ export default function UserMenu(
           ================================================ */}
           <DropdownMenuItem
             render={
-              <Link href="/settings">
+              <Link  href={`${dashboardRoute[roleForDeshboard]}/settings`}>
                 <Settings />
                 <span>Settings</span>
               </Link>

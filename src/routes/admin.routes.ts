@@ -13,7 +13,7 @@ import {
 export const adminRoutes = [
   {
     title: "Dashboard",
-    url: "/dashboard",
+    url: "/admin",
     icon: LayoutDashboard,
   },
   {

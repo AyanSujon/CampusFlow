@@ -729,6 +729,7 @@ import { toast } from "@/components/ui/toast";
 import { useQueryClient } from "@tanstack/react-query";
 import Logo from "@/components/shared/logo/logo";
 import UserMenu from "@/components/shared/user-menu";
+import { UserRole } from "@/types";
 
 
 const routes = [
@@ -774,6 +775,16 @@ const routes = [
 
 
 
+const dashboardRoute: Record<UserRole, string> = {
+  SUPER_ADMIN: "/super-admin",
+  ADMIN: "/admin",
+  DEPARTMENT_HEAD: "/department-head",
+  INSTRUCTOR: "/instructor",
+  STUDENT: "/student",
+  ACCOUNTANT: "/accountant"
+};
+
+
 
 
 export default function HeaderPublic() {
@@ -786,6 +797,10 @@ export default function HeaderPublic() {
   const { data, isLoading } = useGetMe();
   const { mutate: logout } = useLogout();
   const queryClient = useQueryClient();
+
+
+  const role : UserRole = !!data?.data && data?.data.role;
+  // console.log(role , "user role")
 
   const handleLogout = () => {
 
@@ -811,7 +826,7 @@ export default function HeaderPublic() {
 
   }
 
-  console.log(data, "header data")
+  // console.log(data, "header data")
   // ============================================================
   // ACTIVE ROUTE
   // ============================================================
