@@ -1115,7 +1115,7 @@ export default function HeaderPublic() {
               MOBILE / TABLET MENU BUTTON
               ================================================= */}
           {/* === Theme Switcher (Dropdown) === */}
-          <div className="ml-auto"><ThemeSwitcher /></div>
+          <div className="ml-auto lg:hidden"><ThemeSwitcher /></div>
 
           <button
             type="button"
