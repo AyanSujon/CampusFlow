@@ -1,394 +1,351 @@
 
-import Logo from "@/components/shared/logo/logo";
+import {
+    ArrowUpRight,
+    LogIn,
+    Mail,
+    MapPin,
+    Phone,
+} from "lucide-react";
+
+import {
+    FaFacebookF,
+    FaGithub,
+    FaInstagram,
+    FaLinkedinIn,
+    FaXTwitter,
+} from "react-icons/fa6";
+
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React from "react";
-
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
-} from "react-icons/fa";
-
-import {
-  MdEmail,
-  MdLocationOn,
-  MdPhone,
-} from "react-icons/md";
-
-const footerSections = [
-  {
-    title: "Academics",
-    links: [
-      { name: "Faculties", url: "/faculties" },
-      { name: "Departments", url: "/departments" },
-      { name: "Programs", url: "/programs" },
-      { name: "Courses", url: "/courses" },
-      { name: "Subjects", url: "/subjects" },
-    ],
-  },
-  {
-    title: "Admissions",
-    links: [
-      { name: "Admission Process", url: "/admissions/process" },
-      { name: "Requirements", url: "/admissions/requirements" },
-      { name: "Apply Now", url: "/admissions/apply" },
-    ],
-  },
-  {
-    title: "Campus Life",
-    links: [
-      { name: "Events", url: "/events" },
-      { name: "Clubs & Organizations", url: "/clubs" },
-      { name: "Campus Facilities", url: "/facilities" },
-    ],
-  },
-];
+import Logo from "@/components/shared/logo/logo";
 
 const quickLinks = [
-  { name: "Home", url: "/" },
-  { name: "About Us", url: "/about-us" },
-  { name: "Contact", url: "/contact" },
-  { name: "Login", url: "/login" },
+    { label: "Home", href: "/" },
+    { label: "About University", href: "/about" },
+    { label: "Academics", href: "/academics" },
+    { label: "Admissions", href: "/admissions" },
+    { label: "Campus Life", href: "/campus-life" },
+    { label: "News & Stories", href: "/news" },
+    { label: "Events", href: "/events" },
+    { label: "Contact", href: "/contact" },
+];
+
+const academicLinks = [
+    { label: "Programs", href: "/academics/programs" },
+    { label: "Faculties", href: "/academics/faculties" },
+    { label: "Departments", href: "/academics/departments" },
+    { label: "Courses", href: "/academics/courses" },
+    { label: "Academic Calendar", href: "/academics/calendar" },
 ];
 
 const socialLinks = [
-  {
-    name: "Facebook",
-    url: "#",
-    icon: FaFacebookF,
-  },
-  {
-    name: "Instagram",
-    url: "#",
-    icon: FaInstagram,
-  },
-  {
-    name: "LinkedIn",
-    url: "#",
-    icon: FaLinkedinIn,
-  },
-  {
-    name: "Twitter",
-    url: "#",
-    icon: FaTwitter,
-  },
+    {
+        name: "Facebook",
+        href: "#",
+        icon: FaFacebookF,
+    },
+    {
+        label: "Instagram",
+        href: "#",
+        icon: FaInstagram,
+    },
+    {
+        label: "LinkedIn",
+        href: "#",
+        icon: FaLinkedinIn,
+    },
+    {
+        label: "X",
+        href: "#",
+        icon: FaXTwitter,
+    },
+    {
+        label: "GitHub",
+        href: "#",
+        icon: FaGithub,
+    },
 ];
 
-export default function FooterPublic() {
-  return (
-    <footer className="border-t border-border bg-secondary/40">
-      {/* =====================================================
-          MAIN FOOTER
-          ===================================================== */}
-      <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div
-          className="
-            grid gap-10
-            sm:grid-cols-2
-            lg:grid-cols-12
-            lg:gap-8
-          "
-        >
-          {/* =================================================
-              BRAND / ABOUT
-              ================================================= */}
-          <div className="sm:col-span-2 lg:col-span-4">
-            {/* Logo */}
+const partnerPlaceholders = [
+    "Accreditation Body",
+    "Academic Partner",
+    "Education Partner",
+];
 
-            <Logo/>
-            {/* <Link
-              href="/"
-              className="
-                inline-block
-                text-2xl
-                font-bold
-                tracking-tight
-                text-primary
-              "
-            >
-              Campus
-              <span className="text-accent">Flow</span>
-            </Link> */}
+export default function Footer() {
+    return (
+        <footer className="border-t border-border bg-secondary/40 ">
+            {/* =========================================
+                Main Footer
+            ========================================= */}
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid gap-10 py-14 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:py-16">
+                    {/* =====================================
+                        Brand / About
+                    ===================================== */}
+                    <div className="max-w-sm">
 
-            {/* Description */}
-            <p
-              className="
-                mt-4
-                max-w-md
-                text-sm
-                leading-6
-                text-muted-foreground
-              "
-            >
-              A modern university management platform designed
-              to connect students, faculty, departments, and
-              administrators through one seamless digital campus.
-            </p>
+                        <Logo />
 
-            {/* Contact Information */}
-            <div className="mt-6 space-y-3">
-              {/* Location */}
-              <div className="flex items-start gap-3">
-                <MdLocationOn
-                  className="
-                    mt-0.5
-                    h-5 w-5
-                    shrink-0
-                    text-primary
-                  "
-                />
+                        <p className="mt-5 text-sm leading-6 text-muted-foreground transition-colors">
+                            A university-focused digital platform connecting
+                            students, faculty, academics, admissions, results,
+                            and university operations in one organized campus
+                            system.
+                        </p>
 
-                <span className="text-sm text-muted-foreground">
-                  University Campus, Bangladesh
-                </span>
-              </div>
+                        {/* Portal Login */}
+                        <div className="mt-6">
+                            <Button
+                                variant="secondary"
+                                render={
+                                    <Link href="/login">
+                                        <LogIn className="size-4" />
+                                        Portal Login
+                                    </Link>
+                                }
+                            />
+                        </div>
 
-              {/* Phone */}
-              <div className="flex items-center gap-3">
-                <MdPhone
-                  className="
-                    h-5 w-5
-                    shrink-0
-                    text-primary
-                  "
-                />
+                        {/* Social Links */}
 
-                <a
-                  href="tel:+8800000000000"
-                  className="
-                    text-sm
-                    text-muted-foreground
-                    transition-colors
-                    hover:text-primary
-                  "
-                >
-                  +880 0000-000000
-                </a>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-center gap-3">
-                <MdEmail
-                  className="
-                    h-5 w-5
-                    shrink-0
-                    text-primary
-                  "
-                />
-
-                <a
-                  href="mailto:info@campusflow.edu"
-                  className="
-                    text-sm
-                    text-muted-foreground
-                    transition-colors
-                    hover:text-primary
-                  "
-                >
-                  info@campusflow.edu
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* =================================================
-              FOOTER LINK SECTIONS
-              ================================================= */}
-          {footerSections.map((section) => (
-            <div
-              key={section.title}
-              className="lg:col-span-2"
-            >
-              <h3
-                className="
-                  text-sm
-                  font-semibold
-                  text-foreground
-                "
-              >
-                {section.title}
-              </h3>
-
-              <ul className="mt-4 space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.url}
-                      className="
-                        text-sm
-                        text-muted-foreground
-                        transition-colors
-                        hover:text-primary
-                      "
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* =================================================
-              QUICK LINKS
-              ================================================= */}
-          <div className="lg:col-span-2">
-            <h3
-              className="
+                        <div className="lg:col-span-2">
+                            <h3
+                                className="
                 text-sm
                 font-semibold
                 text-foreground
               "
-            >
-              Quick Links
-            </h3>
+                            >
+                                Follow Us
+                            </h3>
 
-            <ul className="mt-4 space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.url}
-                    className="
-                      text-sm
-                      text-muted-foreground
-                      transition-colors
-                      hover:text-primary
-                    "
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+                            <div className="mt-4 flex items-center gap-2">
+                                {socialLinks.map((social) => {
+                                    const Icon = social.icon;
 
-          {/* =================================================
-              SOCIAL
-              ================================================= */}
-          <div className="lg:col-span-2">
-            <h3
-              className="
-                text-sm
-                font-semibold
-                text-foreground
-              "
-            >
-              Follow Us
-            </h3>
+                                    return (
+                                        <Link
+                                            key={social.name}
+                                            href={social.href}
+                                            aria-label={social.name}
+                                            className="
+                                            inline-flex
+                                            h-9 w-9
+                                            items-center
+                                            justify-center
+                                            rounded-md
+                                            border
+                                            border-border
+                                            bg-background
+                                            text-muted-foreground
+                                            transition-all
+                                            hover:border-primary
+                                            hover:bg-primary
+                                            hover:text-primary-foreground
+                                            "
+                                        >
+                                            <Icon className="h-4 w-4" />
+                                        </Link>
+                                    );
+                                })}
+                            </div>
 
-            <div className="mt-4 flex items-center gap-2">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
+                            <p
+                                className="
+                                mt-4
+                                text-xs
+                                leading-5
+                                text-muted-foreground
+                                 "
+                            >
+                                Stay connected with CampusFlow for the
+                                latest university news and updates.
+                            </p>
+                        </div>
 
-                return (
-                  <Link
-                    key={social.name}
-                    href={social.url}
-                    aria-label={social.name}
-                    className="
-                      inline-flex
-                      h-9 w-9
-                      items-center
-                      justify-center
-                      rounded-md
-                      border
-                      border-border
-                      bg-background
-                      text-muted-foreground
-                      transition-all
-                      hover:border-primary
-                      hover:bg-primary
-                      hover:text-primary-foreground
-                    "
-                  >
-                    <Icon className="h-4 w-4" />
-                  </Link>
-                );
-              })}
+
+
+                    </div>
+
+                    {/* =====================================
+                        Quick Links
+                    ===================================== */}
+                    <div>
+                        <h3 className="text-sm font-semibold text-foreground">
+                            Quick Links
+                        </h3>
+
+                        <ul className="mt-5 space-y-3">
+                            {quickLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="group inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                    >
+                                        {link.label}
+
+                                        <ArrowUpRight className="size-3 opacity-0 transition-opacity group-hover:opacity-100" />
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* =====================================
+                        Academics
+                    ===================================== */}
+                    <div>
+                        <h3 className="text-sm font-semibold text-foreground">
+                            Academics
+                        </h3>
+
+                        <ul className="mt-5 space-y-3">
+                            {academicLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="group inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                    >
+                                        {link.label}
+
+                                        <ArrowUpRight className="size-3 opacity-0 transition-opacity group-hover:opacity-100" />
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* =====================================
+                        Contact
+                    ===================================== */}
+                    <div>
+                        <h3 className="text-sm font-semibold text-foreground">
+                            Contact CampusFlow
+                        </h3>
+
+                        <div className="mt-5 space-y-4">
+                            {/* Location */}
+                            <div className="flex items-start gap-3">
+                                <MapPin className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+
+                                <p className="text-sm leading-6 text-muted-foreground">
+                                    Dhaka, Bangladesh
+                                </p>
+                            </div>
+
+                            {/* Phone */}
+                            <div className="flex items-start gap-3">
+                                <Phone className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+
+                                <a
+                                    href="tel:+8801XXXXXXXXX"
+                                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                >
+                                    +880 1XXX-XXXXXX
+                                </a>
+                            </div>
+
+                            {/* Email */}
+                            <div className="flex items-start gap-3">
+                                <Mail className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+
+                                <a
+                                    href="mailto:info@campusflow.edu"
+                                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                >
+                                    info@campusflow.edu
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Office */}
+                        <div className="mt-6 rounded-xl border border-border bg-muted/40 p-4">
+                            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                Office Hours
+                            </p>
+
+                            <p className="mt-2 text-sm text-foreground">
+                                Sunday – Thursday
+                            </p>
+
+                            <p className="mt-1 text-sm text-muted-foreground">
+                                9:00 AM – 5:00 PM
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* =========================================
+                    Accreditation / Partner Area
+                ========================================= */}
+                <div className="border-t border-border py-8">
+                    <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                Accreditation & Partners
+                            </p>
+
+                            <p className="mt-2 max-w-md text-sm text-muted-foreground">
+                                Institutional logos can be displayed here once
+                                verified accreditation and partnership
+                                information is available.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                            {partnerPlaceholders.map((partner) => (
+                                <div
+                                    key={partner}
+                                    className="flex min-h-16 min-w-[150px] items-center justify-center rounded-xl border border-dashed border-border bg-muted/40 px-4 text-center"
+                                >
+                                    <span className="text-xs font-medium text-muted-foreground">
+                                        {partner}
+                                        <br />
+                                        Logo Placeholder
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* =========================================
+                    Bottom Bar
+                ========================================= */}
+                <div className="flex flex-col gap-4 border-t border-border py-6 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-xs leading-5 text-muted-foreground">
+                        © {new Date().getFullYear()} CampusFlow University. All
+                        rights reserved.
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                        <Link
+                            href="/privacy"
+                            className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+                        >
+                            Privacy Policy
+                        </Link>
+
+                        <Link
+                            href="/terms"
+                            className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+                        >
+                            Terms & Conditions
+                        </Link>
+
+                        {/* Repeated Portal Login */}
+                        <Link
+                            href="/login"
+                            className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground transition-colors hover:text-primary"
+                        >
+                            <LogIn className="size-3.5" />
+                            Portal Login
+                        </Link>
+                    </div>
+                </div>
             </div>
-
-            <p
-              className="
-                mt-4
-                text-xs
-                leading-5
-                text-muted-foreground
-              "
-            >
-              Stay connected with CampusFlow for the
-              latest university news and updates.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* =====================================================
-          BOTTOM FOOTER
-          ===================================================== */}
-      <div className="border-t border-border">
-        <div
-          className="
-            container mx-auto
-            flex flex-col
-            gap-4
-            px-4 py-5
-            sm:px-6
-            md:flex-row
-            md:items-center
-            md:justify-between
-            lg:px-8
-          "
-        >
-          {/* Copyright */}
-          <p
-            className="
-              text-center
-              text-xs
-              text-muted-foreground
-              md:text-left
-            "
-          >
-            © {new Date().getFullYear()} CampusFlow.
-            All rights reserved.
-          </p>
-
-          {/* Legal Links */}
-          <div
-            className="
-              flex
-              items-center
-              justify-center
-              gap-5
-              md:justify-end
-            "
-          >
-            <Link
-              href="/privacy-policy"
-              className="
-                text-xs
-                text-muted-foreground
-                transition-colors
-                hover:text-primary
-              "
-            >
-              Privacy Policy
-            </Link>
-
-            <Link
-              href="/terms"
-              className="
-                text-xs
-                text-muted-foreground
-                transition-colors
-                hover:text-primary
-              "
-            >
-              Terms & Conditions
-            </Link>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+        </footer>
+    );
 }
+
