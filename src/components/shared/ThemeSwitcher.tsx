@@ -30,7 +30,7 @@ export default function ThemeSwitcher() {
                 <DropdownMenuContent align="end" className='space-y-1'>
                     <DropdownMenuItem
                         onClick={() => setTheme("light")}
-                        className={theme === 'light' ? 'bg-accent' : ''}
+                        className={theme === 'light' ? 'bg-secondary ' : ''}
                     >
                         <Sun className="mr-2 h-4 w-4" />
                         Light
@@ -39,7 +39,7 @@ export default function ThemeSwitcher() {
 
                     <DropdownMenuItem
                         onClick={() => setTheme("dark")}
-                        className={theme === 'dark' ? 'bg-accent' : ''}
+                        className={theme === 'dark' ? 'bg-secondary' : ''}
                     >
                         <Moon className="mr-2 h-4 w-4" />
                         Dark
@@ -48,7 +48,7 @@ export default function ThemeSwitcher() {
 
                     <DropdownMenuItem
                         onClick={() => setTheme("system")}
-                        className={theme === 'system' ? 'bg-accent' : ''}
+                        className={theme === 'system' ? 'bg-secondary' : ''}
                     >
                         <span className="mr-2 h-4 w-4">💻</span>
                         System
