@@ -215,17 +215,13 @@ export default function AdmissionsHowToApply() {
                                 application process.
                             </p>
                         </div>
-
-                        <Button
-                            render={
-                                <Link href="/admissions/process">
-                                    Explore Admissions
-                                    <ArrowRight className="size-4" />
-                                </Link>
-                            }
-                            variant="secondary"
-                            className="mt-6 w-full"
-                        />
+                        <Link
+                            href="/admissions/process"
+                            className="mt-6 flex w-full items-center justify-center gap-2 rounded-md border border-border bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                        >
+                            Explore Admissions
+                            <ArrowRight className="size-4" />
+                        </Link>
                     </div>
                 </div>
             </div>

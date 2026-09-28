@@ -102,16 +102,12 @@ export default function FacultiesDepartmentsOverview() {
                     </div>
 
                     {/* Desktop CTA */}
-                    <Button
-                        variant="outline"
-                        className="hidden shrink-0 sm:inline-flex"
-                        render={
-                            <Link href="/academics">
-                                Explore Academics
-                                <ArrowRight className="size-4" />
-                            </Link>
-                        }
-                    />
+                    <Link href="/academics"
+                        className="hidden shrink-0 sm:inline-flex">
+                        Explore Academics
+                        <ArrowRight className="size-4" />
+                    </Link>
+
                 </div>
 
                 {/* =================================================
@@ -133,16 +129,11 @@ export default function FacultiesDepartmentsOverview() {
                 ================================================= */}
 
                 <div className="mt-8 sm:hidden">
-                    <Button
-                        variant="outline"
-                        className="w-full"
-                        render={
-                            <Link href="/academics">
-                                Explore Academics
-                                <ArrowRight className="size-4" />
-                            </Link>
-                        }
-                    />
+                    <Link href="/academics"
+                        className="w-full">
+                        Explore Academics
+                        <ArrowRight className="size-4" />
+                    </Link>
                 </div>
 
                 {/* =================================================

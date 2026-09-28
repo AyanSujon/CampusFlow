@@ -38,24 +38,23 @@ export function AboutHero() {
                     </p>
 
                     {/* Actions */}
+
                     <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                        <Button
-                            render={<Link href="/contact">
-                                Get Started
-                                <ArrowRight className="ml-2 size-4" />
-                            </Link>}
-                            size="lg">
+                        <Link
+                            href="/contact"
+                            className="group inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        >
+                            Get Started
+                            <ArrowRight className="ml-2 size-4 transition-transform duration-200 group-hover:translate-x-1" />
+                        </Link>
 
-                        </Button>
-
-                        <Button
-                        render={                            <Link href="/academics">
-                                Explore CampusFlow
-                                <GraduationCap className="ml-2 size-4" />
-                            </Link>}
-                        variant="outline" size="lg">
-
-                        </Button>
+                        <Link
+                            href="/academics"
+                            className="group inline-flex h-11 items-center justify-center rounded-md border border-input bg-background px-6 text-sm font-medium shadow-sm transition-all hover:bg-secondary hover:text-accent-foreground hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        >
+                            Explore CampusFlow
+                            <GraduationCap className="ml-2 size-4 transition-transform duration-200 group-hover:scale-110" />
+                        </Link>
                     </div>
                 </div>
             </div>

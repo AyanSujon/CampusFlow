@@ -40,26 +40,31 @@ const academicLinks = [
 
 const socialLinks = [
     {
+        id: 1,
         name: "Facebook",
         href: "#",
         icon: FaFacebookF,
     },
     {
+        id: 2,
         label: "Instagram",
         href: "#",
         icon: FaInstagram,
     },
     {
+        id: 3,
         label: "LinkedIn",
         href: "#",
         icon: FaLinkedinIn,
     },
     {
+        id: 4,
         label: "X",
         href: "#",
         icon: FaXTwitter,
     },
     {
+        id: 5,
         label: "GitHub",
         href: "#",
         icon: FaGithub,
@@ -96,15 +101,10 @@ export default function Footer() {
 
                         {/* Portal Login */}
                         <div className="mt-6">
-                            <Button
-                                variant="secondary"
-                                render={
-                                    <Link href="/login">
-                                        <LogIn className="size-4" />
-                                        Portal Login
-                                    </Link>
-                                }
-                            />
+                            <Link href="/login" className="secondary flex items-center gap-1">
+                                <LogIn className="size-4" />
+                                Portal Login
+                            </Link>
                         </div>
 
                         {/* Social Links */}
@@ -126,7 +126,7 @@ export default function Footer() {
 
                                     return (
                                         <Link
-                                            key={social.name}
+                                            key={social.id}
                                             href={social.href}
                                             aria-label={social.name}
                                             className="

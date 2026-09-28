@@ -112,16 +112,13 @@ export default function AcademicProgramsHighlight() {
                     </div>
 
                     {/* Desktop View All */}
-                    <Button
-                        variant="outline"
-                        className="hidden shrink-0 sm:inline-flex"
-                        render={
-                            <Link href="/academics/programs">
-                                View All Programs
-                                <ArrowRight className="size-4" />
-                            </Link>
-                        }
-                    />
+
+                    <Link href="/academics/programs"
+                        className="hidden shrink-0 sm:inline-flex">
+                        View All Programs
+                        <ArrowRight className="size-4" />
+                    </Link>
+
                 </div>
 
                 {/* =================================================
@@ -142,16 +139,11 @@ export default function AcademicProgramsHighlight() {
                 ================================================= */}
 
                 <div className="mt-8 flex justify-center sm:hidden">
-                    <Button
-                        variant="outline"
-                        className="w-full"
-                        render={
-                            <Link href="/academics/programs">
-                                View All Programs
-                                <ArrowRight className="size-4" />
-                            </Link>
-                        }
-                    />
+                    <Link href="/academics/programs"
+                        className="w-full">
+                        View All Programs
+                        <ArrowRight className="size-4" />
+                    </Link>
                 </div>
 
                 {/* =================================================
@@ -239,19 +231,13 @@ function ProgramCard({
 
             {/* Details */}
             <div className="mt-5">
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-between px-2 text-primary hover:text-primary"
-                    render={
-                        <Link
-                            href={`/academics/programs/${program.id}`}
-                        >
-                            Program Details
-                            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                        </Link>
-                    }
-                />
+                <Link
+                    className="w-full px-2 text-primary hover:text-primary flex items-center gap-1 "
+                    href={`/academics/programs/${program.id}`}
+                >
+                    Program Details
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
             </div>
         </article>
     );

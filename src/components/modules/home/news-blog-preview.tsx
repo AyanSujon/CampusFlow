@@ -185,6 +185,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 type NewsPost = {
     id: string;
@@ -260,15 +261,10 @@ export default function NewsBlogPreview() {
                         </p>
                     </div>
 
-                    <Button
-                        variant="outline"
-                        render={
-                            <Link href="/news">
-                                View All News
-                                <ArrowRight className="size-4" />
-                            </Link>
-                        }
-                    />
+                    <Link href="/news">
+                        View All News
+                        <ArrowRight className="size-4 outline" />
+                    </Link>
                 </div>
 
                 {/* News Cards */}
@@ -309,19 +305,13 @@ export default function NewsBlogPreview() {
                                 </p>
 
                                 <div className="mt-auto pt-6">
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
+                                    <Link
                                         className="px-0 hover:bg-transparent hover:text-primary"
-                                        render={
-                                            <Link
-                                                href={`/news/${post.slug}`}
-                                            >
-                                                Read Story
-                                                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                                            </Link>
-                                        }
-                                    />
+                                        href={`/news/${post.slug}`}
+                                    >
+                                        Read Story
+                                        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                                    </Link>
                                 </div>
                             </div>
                         </article>

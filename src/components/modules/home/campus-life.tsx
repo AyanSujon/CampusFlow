@@ -265,16 +265,11 @@ function CampusLifeLink({
     children: React.ReactNode;
 }) {
     return (
-        <Button
-            render={
-                <Link href={href}>
-                    {children}
-                    <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
-            }
-            variant="ghost"
-            className="group mt-5 w-fit px-0 text-primary hover:bg-transparent hover:text-primary"
-        />
+        <Link href={href}
+            className="group mt-5 w-fit px-0 text-primary hover:bg-transparent hover:text-primary">
+            {children}
+            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+        </Link>
     );
 }
 
@@ -302,16 +297,11 @@ export default function CampusLife() {
                         </p>
                     </div>
 
-                    <Button
-                        render={
-                            <Link href="/campus-life">
-                                Explore Campus Life
-                                <ArrowRight className="size-4" />
-                            </Link>
-                        }
-                        variant="outline"
-                        className="w-fit"
-                    />
+                    <Link href="/campus-life"
+                        className="w-fit flex gap-1 items-center">
+                        Explore Campus Life
+                        <ArrowRight className="size-4" />
+                    </Link>
                 </div>
 
 
@@ -358,16 +348,11 @@ export default function CampusLife() {
                                 </p>
                             </div>
 
-                            <Button
-                                render={
-                                    <Link href="/campus-life">
-                                        Discover Campus Life
-                                        <ArrowRight className="size-4" />
-                                    </Link>
-                                }
-                                variant="secondary"
-                                className="mt-8 w-fit"
-                            />
+                            <Link href="/campus-life"
+                                className="mt-8 w-fit flex items-center gap-1">
+                                Discover Campus Life
+                                <ArrowRight className="size-4" />
+                            </Link>
                         </div>
                     </div>
 

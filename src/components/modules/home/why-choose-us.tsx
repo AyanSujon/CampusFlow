@@ -95,16 +95,11 @@ export default function WhyChooseUs() {
                             distinctive.
                         </p>
 
-                        <Button
-                            variant="outline"
-                            className="mt-6"
-                            render={
-                                <Link href="/about">
-                                    Discover the university
-                                    <ArrowRight className="size-4" />
-                                </Link>
-                            }
-                        />
+                        <Link href="/about"
+                            className="mt-6 flex gap-1 items-center hover:text-primary">
+                            Discover the university
+                            <ArrowRight className="size-4" />
+                        </Link>
                     </div>
 
                     {/* =================================================

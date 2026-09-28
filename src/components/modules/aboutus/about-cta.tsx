@@ -25,14 +25,10 @@ export function AboutCTA() {
                         </p>
 
                         <div className="mt-8">
-                            <Button
-                                render={<Link href="/contact">
-                                    Get Started
-                                    <ArrowRight className="ml-2 size-4" />
-                                </Link>}
-                                size="lg">
-
-                            </Button>
+                            <Link href="/contact" className="flex items-center gap-1">
+                                Get Started
+                                <ArrowRight className="ml-2 size-4" />
+                            </Link>
                         </div>
                     </div>
                 </div>

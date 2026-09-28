@@ -562,7 +562,7 @@ export default function AboutUniversity() {
                             environment for students and faculty.
                         </p>
 
-                        <Button
+                        {/* <Button
                             variant="outline"
                             className="mt-6"
                             render={
@@ -571,7 +571,15 @@ export default function AboutUniversity() {
                                     <ArrowRight className="size-4" />
                                 </Link>
                             }
-                        />
+                        /> */}
+
+                        <Link
+                            href="/about"
+                            className="mt-6 inline-flex items-center justify-center gap-2 rounded-md border bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                        >
+                            Learn more about us
+                            <ArrowRight className="size-4" />
+                        </Link>
                     </div>
 
                     {/* =================================================
@@ -681,14 +689,14 @@ export default function AboutUniversity() {
                                                 aria-label={`Show ${slide.label}`}
                                                 aria-current={
                                                     index ===
-                                                    currentIndex
+                                                        currentIndex
                                                         ? "true"
                                                         : undefined
                                                 }
                                                 className={[
                                                     "h-1.5 rounded-full transition-all duration-300",
                                                     index ===
-                                                    currentIndex
+                                                        currentIndex
                                                         ? "w-8 bg-primary"
                                                         : "w-2 bg-border",
                                                 ].join(" ")}

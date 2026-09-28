@@ -148,17 +148,10 @@ export default function UpcomingEvents({
                                 gatherings.
                             </p>
                         </div>
-
-                        <Button
-                            render={
-                                <Link href="/events">
-                                    View Full Calendar
-                                    <ArrowRight className="size-4" />
-                                </Link>
-                            }
-                            variant="outline"
-                            className="w-fit"
-                        />
+                        <Link href="/events" className="w-fit flex items-center gap-1 outline">
+                            View Full Calendar
+                            <ArrowRight className="size-4" />
+                        </Link>
                     </div>
 
                     <div className="mt-10 rounded-2xl border bg-background px-6 py-16 text-center">
@@ -175,17 +168,10 @@ export default function UpcomingEvents({
                             events scheduled at the moment. Check the full
                             calendar for more information.
                         </p>
-
-                        <Button
-                            render={
-                                <Link href="/events">
-                                    View Event Calendar
-                                    <ArrowRight className="size-4" />
-                                </Link>
-                            }
-                            variant="outline"
-                            className="mt-6"
-                        />
+                        <Link href="/events" className="mt-6 outline flex items-center gap-1 " >
+                            View Event Calendar
+                            <ArrowRight className="size-4" />
+                        </Link>
                     </div>
                 </div>
             </section>
@@ -218,16 +204,10 @@ export default function UpcomingEvents({
                         </p>
                     </div>
 
-                    <Button
-                        render={
-                            <Link href="/events">
-                                View Full Calendar
-                                <ArrowRight className="size-4" />
-                            </Link>
-                        }
-                        variant="outline"
-                        className="w-fit"
-                    />
+                    <Link href="/events" className="w-fit outline flex items-center gap-1 ">
+                        View Full Calendar
+                        <ArrowRight className="size-4" />
+                    </Link>
                 </div>
 
                 {/* =========================================
@@ -319,16 +299,12 @@ export default function UpcomingEvents({
 
                             {/* Bottom */}
                             <div className="mt-8 flex flex-wrap items-center gap-4">
-                                <Button
-                                    render={
-                                        <Link
-                                            href={`/events/${activeEvent.slug}`}
-                                        >
-                                            View Event Details
-                                            <ArrowRight className="size-4" />
-                                        </Link>
-                                    }
-                                />
+                                <Link
+                                    href={`/events/${activeEvent.slug}`}
+                                >
+                                    View Event Details
+                                    <ArrowRight className="size-4" />
+                                </Link>
 
                                 <Button
                                     type="button"

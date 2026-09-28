@@ -177,15 +177,10 @@ export default function ContactLocation() {
                         </div>
 
                         <div className="mt-8">
-                            <Button
-                                variant="outline"
-                                render={
-                                    <Link href="/contact">
-                                        Contact CampusFlow
-                                        <ArrowRight className="size-4" />
-                                    </Link>
-                                }
-                            />
+                            <Link href="/contact" className="outline flex items-center gap-1">
+                                Contact CampusFlow
+                                <ArrowRight className="size-4" />
+                            </Link>
                         </div>
                     </div>
 
@@ -289,16 +284,11 @@ export default function ContactLocation() {
                                 Get in touch with CampusFlow.
                             </h3>
                         </div>
-
-                        <Button
-                            variant="secondary"
-                            render={
-                                <Link href="/contact">
-                                    Contact Us
-                                    <ArrowRight className="size-4" />
-                                </Link>
-                            }
-                        />
+                        <Link href="/contact"
+                            className=" flex items-center gap-1">
+                            Contact Us
+                            <ArrowRight className="size-4" />
+                        </Link>
                     </div>
                 </div>
             </div>
