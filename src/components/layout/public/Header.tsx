@@ -786,34 +786,34 @@ export default function HeaderPublic() {
 
 
   const { data, isLoading } = useGetMe();
-  const { mutate: logout } = useLogout();
-  const queryClient = useQueryClient();
+  // const { mutate: logout } = useLogout();
+  // const queryClient = useQueryClient();
 
 
 
-  const handleLogout = () => {
+  // const handleLogout = () => {
 
-    logout(undefined, {
-      onSuccess: () => {
-        toast.add({
-          title: "Logout Success",
-          description: "logged out successfully",
-          type: "success"
-        });
-        queryClient.removeQueries({ queryKey: ["user"] });
+  //   logout(undefined, {
+  //     onSuccess: () => {
+  //       toast.add({
+  //         title: "Logout Success",
+  //         description: "logged out successfully",
+  //         type: "success"
+  //       });
+  //       queryClient.removeQueries({ queryKey: ["user"] });
 
-      },
-      onError: () => {
-        toast.add({
-          title: "Logout Failed",
-          description: "Something Went Wrong",
-          type: "error"
-        })
-      }
+  //     },
+  //     onError: () => {
+  //       toast.add({
+  //         title: "Logout Failed",
+  //         description: "Something Went Wrong",
+  //         type: "error"
+  //       })
+  //     }
 
-    })
+  //   })
 
-  }
+  // }
 
   // console.log(data, "header data")
   // ============================================================
@@ -1062,9 +1062,10 @@ export default function HeaderPublic() {
                 </Link>
               )
             }
-            {!isLoading && data && <UserMenu
+            {/* {!isLoading && data && <UserMenu
               onLogout={handleLogout}
-            />}
+            />} */}
+            {!isLoading && data && <UserMenu/>}
             {
               // !isLoading && data && (
               //   <Button
