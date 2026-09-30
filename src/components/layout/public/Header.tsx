@@ -724,9 +724,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { useGetMe, useLogout } from "@/hooks/auth.hook";
-import { toast } from "@/components/ui/toast";
-import { useQueryClient } from "@tanstack/react-query";
+import { useGetMe} from "@/hooks/auth.hook";
 import Logo from "@/components/shared/logo/logo";
 import UserMenu from "@/components/shared/user-menu";
 import ThemeSwitcher from "@/components/shared/ThemeSwitcher";
@@ -786,36 +784,7 @@ export default function HeaderPublic() {
 
 
   const { data, isLoading } = useGetMe();
-  // const { mutate: logout } = useLogout();
-  // const queryClient = useQueryClient();
-
-
-
-  // const handleLogout = () => {
-
-  //   logout(undefined, {
-  //     onSuccess: () => {
-  //       toast.add({
-  //         title: "Logout Success",
-  //         description: "logged out successfully",
-  //         type: "success"
-  //       });
-  //       queryClient.removeQueries({ queryKey: ["user"] });
-
-  //     },
-  //     onError: () => {
-  //       toast.add({
-  //         title: "Logout Failed",
-  //         description: "Something Went Wrong",
-  //         type: "error"
-  //       })
-  //     }
-
-  //   })
-
-  // }
-
-  // console.log(data, "header data")
+  
   // ============================================================
   // ACTIVE ROUTE
   // ============================================================
@@ -862,14 +831,6 @@ export default function HeaderPublic() {
               BRAND
               ================================================= */}
           <Logo />
-          {/* <Link
-            href="/"
-            onClick={closeMobileMenu}
-            className="shrink-0 text-xl font-bold tracking-tight text-primary sm:text-2xl"
-          >
-            Campus
-            <span className="text-accent">Flow</span>
-          </Link> */}
 
           {/* =================================================
               DESKTOP NAVIGATION
@@ -1062,34 +1023,8 @@ export default function HeaderPublic() {
                 </Link>
               )
             }
-            {/* {!isLoading && data && <UserMenu
-              onLogout={handleLogout}
-            />} */}
             {!isLoading && data && <UserMenu/>}
-            {
-              // !isLoading && data && (
-              //   <Button
-              //     variant="ghost"
-              //     type="button"
-              //     onClick={handleLogout}
-              //     className="
-              //     rounded-md
-              //     px-5 py-5
-              //     text-sm font-medium
-              //     text-foreground
-              //     transition-colors
-              //     hover:bg-secondary
-              //     hover:text-primary
-              //     "
-              //   >
-              //     Logout
-              //   </Button>
-              // )
-            }
-
-
-
-
+            
             {/* Apply */}
             <Link
               href="/admissions/apply"
