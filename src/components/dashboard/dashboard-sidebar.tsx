@@ -240,7 +240,7 @@ export function DeshboardSidebar({ userRole }: { userRole: UserRole }) {
   const pathname = usePathname();
   const routes: SidebarItems = sidebarRoutes[userRole] || [];
 
-  console.log(pathname);
+  // console.log(pathname);
 
 
   return (

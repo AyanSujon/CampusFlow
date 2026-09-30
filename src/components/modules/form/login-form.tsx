@@ -551,7 +551,7 @@ export function LoginForm() {
             description: "Welcome back",
             type: "success",
           });
-          console.log(res, "login data: __________________")
+          // console.log(res, "login data: __________________")
 
           router.push("/");
         },

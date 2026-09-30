@@ -13,7 +13,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
   const user = data;
 
 
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     // Wait until authentication request is completed

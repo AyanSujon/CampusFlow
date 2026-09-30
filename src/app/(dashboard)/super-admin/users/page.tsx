@@ -244,7 +244,7 @@ function StatusBadge({
 
 function UsersTableSkeleton() {
     return (
-        <div className="overflow-hidden rounded-xl border bg-card">
+        <div className="overflow-hidden rounded-xl border bg-card ">
             <div className="overflow-x-auto">
                 <Table className="min-w-[900px]">
                     <TableHeader>
@@ -584,7 +584,7 @@ export default function Users() {
 
     return (
         <div
-            className={`space-y-6 transition-opacity ${
+            className={`space-y-6 transition-opacity p-3 ${
                 isFetching
                     ? "opacity-70"
                     : "opacity-100"
@@ -612,9 +612,9 @@ export default function Users() {
 
             {/* ================= TABLE ================= */}
 
-            <div className="overflow-hidden rounded-xl border bg-card">
-                <div className="overflow-x-auto">
-                    <Table className="min-w-[900px]">
+            <div className="overflow-hidden rounded-xl border bg-card ">
+                <div className="overflow-x-auto ">
+                    <Table className="min-w-[900px] p-3">
                         <TableHeader>
                             <TableRow className="bg-muted/40">
                                 <TableHead className="min-w-48">

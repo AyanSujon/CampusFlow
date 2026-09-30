@@ -5,8 +5,6 @@ export default function SuperAdminDeshboard() {
   return (
     <div>
       <SuperAdminDashboardHomePage/>
-
-      
     </div>
   )
 }
