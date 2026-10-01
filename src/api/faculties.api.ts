@@ -6,3 +6,4 @@ export const getAllFaculties = async (params: IQuery) => {
         params,
     });
 };
+
