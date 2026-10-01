@@ -1,6 +1,6 @@
-import { getAllUsers } from "@/api";
-import { getAllStudents } from "@/api/profiles.api";
-import { useQuery } from "@tanstack/react-query";
+
+import { createInstructorProfile, getAllInstructors, getAllStudents } from "@/api/profiles.api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 
 
@@ -22,3 +22,21 @@ export const useGetAllStudents = (params: IQuery) => {
         placeholderData: (previousData) => previousData,
     });
 };
+
+
+export const useGetAllInstructors = (params: IQuery) => {
+    return useQuery({
+        queryKey: ["profiles", "instructors", params],
+        queryFn: () => getAllInstructors(params),
+        placeholderData: (previousData) => previousData,
+    });
+};
+
+
+
+
+export function useCreateInstructor(){
+    return useMutation({
+        mutationFn: createInstructorProfile,
+    })
+}
