@@ -7,3 +7,7 @@ export const getAllFaculties = async (params: IQuery) => {
     });
 };
 
+export const createFaculty = async (payload: any) => {
+    return await apiClient("/organization/faculties/create", {method: "POST", body: payload} );
+};
+

@@ -1,6 +1,6 @@
-import { getAllFaculties } from "@/api/faculties.api";
+import { createFaculty, getAllFaculties } from "@/api/faculties.api";
 import { IQuery } from "./profiles.hook";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useGetAllFaculties = (params: IQuery) => {
     return useQuery({
@@ -10,3 +10,9 @@ export const useGetAllFaculties = (params: IQuery) => {
     });
 };
 
+
+export function useCreateFaculty(){
+    return useMutation({
+        mutationFn: createFaculty,
+    })
+}
