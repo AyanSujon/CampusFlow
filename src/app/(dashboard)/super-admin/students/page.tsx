@@ -96,6 +96,9 @@ export default function StudentsPage() {
   const students: Student[] = data?.data ?? [];
 
   const meta = data?.meta;
+  
+
+
 
   const totalPages = meta?.totalPages ?? 1;
 
