@@ -56,12 +56,12 @@ export const superAdminRoutes = [
   },
   {
     title: "Reports",
-    url: "/super-admin/reports/academic",
+    url: "/super-admin/academic-reports",
     icon: BarChart3,
     items: [
-      { title: "Academic Reports", url: "/super-admin/reports/academic" },
-      { title: "Student Reports", url: "/super-admin/reports/students" },
-      { title: "Financial Reports", url: "/super-admin/reports/financial" },
+      { title: "Academic Reports", url: "/super-admin/academic-reports" },
+      { title: "Student Reports", url: "/super-admin/students-reports" },
+      { title: "Financial Reports", url: "/super-admin/financial-reports" },
     ],
   },
   {
