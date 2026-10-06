@@ -530,8 +530,8 @@ export function LoginForm() {
 
   const form = useForm({
     defaultValues: {
-      email: "superadmin@gmail.com",
-      password: "Super@admin12345",
+      email: "student@gmail.com",
+      password: "Student@12345",
     },
 
     // validators: {
