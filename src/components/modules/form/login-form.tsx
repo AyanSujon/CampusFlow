@@ -530,8 +530,8 @@ export function LoginForm() {
 
   const form = useForm({
     defaultValues: {
-      email: "student@gmail.com",
-      password: "Student@12345",
+      email: "accountant@gmail.com",
+      password: "Accountant@12345",
     },
 
     // validators: {
@@ -684,7 +684,7 @@ export function LoginForm() {
               </FieldSeparator>
 
               {/* Google Login */}
-              <GoogleLoginComponent/>
+              <GoogleLoginComponent />
 
               {/* Register Link */}
               <FieldDescription className="text-center">
