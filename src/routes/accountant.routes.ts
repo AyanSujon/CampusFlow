@@ -7,7 +7,8 @@ import {
   Settings2,
 } from "lucide-react";
 
-// ACCOUNTANT
+
+// ACCOUNTANT 
 export const accountantRoutes = [
   {
     title: "Dashboard",
