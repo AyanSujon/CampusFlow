@@ -93,13 +93,6 @@ export default function Settings() {
       <div className="mx-auto max-w-7xl space-y-6">
         {/* Header */}
         <div>
-          <div className="mb-2 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-            <User className="h-4 w-4" />
-            Student Portal
-            <span>/</span>
-            Settings
-          </div>
-
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
             Settings
           </h1>
