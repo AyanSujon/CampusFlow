@@ -492,6 +492,303 @@
 
 
 
+// "use client";
+
+// import { useState } from "react";
+// import { toast } from "@/components/ui/toast";
+// import { useForm } from "@tanstack/react-form";
+
+// import { Button } from "@/components/ui/button";
+// import { Card, CardContent } from "@/components/ui/card";
+// import {
+//   Field,
+//   FieldDescription,
+//   FieldError,
+//   FieldGroup,
+//   FieldLabel,
+//   FieldSeparator,
+// } from "@/components/ui/field";
+// import { Input } from "@/components/ui/input";
+
+// import Image from "next/image";
+// import Link from "next/link";
+
+// import { useLogin } from "@/hooks/auth.hook";
+// import { useRouter } from "next/navigation";
+
+// import { Eye, EyeClosed } from "lucide-react";
+// import { Spinner } from "@/components/ui/spinner";
+// import GoogleLoginComponent from "../google-login/GoogleLogin";
+
+
+// export function LoginForm() {
+//   const [showPassword, setShowPassword] = useState(false);
+
+//   const router = useRouter();
+
+//   const { mutate: login, isPending: loginPending } = useLogin();
+
+//   const form = useForm({
+//     defaultValues: {
+//       email: "accountant@gmail.com",
+//       password: "Accountant@12345",
+//     },
+
+//     // validators: {
+//     //   onSubmit: loginSchema,
+//     // },
+
+//     onSubmit: ({ value }) => {
+//       const loginData = {
+//         email: value.email,
+//         password: value.password,
+//       };
+
+//       login(loginData, {
+//         onSuccess: (res) => {
+//           toast.add({
+//             title: "Login Success",
+//             description: "Welcome back",
+//             type: "success",
+//           });
+//           // console.log(res, "login data: __________________")
+
+//           router.push("/");
+//         },
+
+//         onError: (err) => {
+//           toast.add({
+//             title: "Authorization failure",
+//             description:
+//               err.message || "Something went wrong. Please try again",
+//             type: "error",
+//           });
+//         },
+//       });
+//     },
+//   });
+
+
+
+
+
+//   return (
+//     <div className="flex flex-col gap-6">
+//       <Card className="overflow-hidden p-0">
+//         <CardContent className="grid p-0 md:grid-cols-2">
+//           <form
+//             className="p-6 md:p-8"
+//             onSubmit={(event) => {
+//               event.preventDefault();
+//               form.handleSubmit();
+//             }}
+//           >
+
+//             {/* Header */}
+//             <div className="flex flex-col items-center gap-2 text-center">
+//               <h1 className="text-2xl font-bold">Welcome back</h1>
+
+//               <p className="text-balance text-muted-foreground">
+//                 Login to your CampusFlow account
+//               </p>
+//             </div>
+
+
+
+//             <FieldGroup>
+//               <form.Field name="email">
+//                 {(field) => {
+//                   const isInvalid =
+//                     field.state.meta.isTouched && !field.state.meta.isValid;
+
+//                   return (
+//                     <Field data-invalid={isInvalid}>
+//                       <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+//                       <Input
+//                         id={field.name}
+//                         name={field.name}
+//                         onChange={(e) => field.handleChange(e.target.value)}
+//                         onBlur={field.handleBlur}
+//                         value={field.state.value}
+//                         autoComplete="off"
+//                         aria-invalid={isInvalid}
+//                       />
+//                       {isInvalid && <FieldError errors={field.state.meta.errors} />}
+//                     </Field>
+//                   );
+//                 }}
+//               </form.Field>
+
+//               <form.Field name="password">
+
+//                 {(field) => {
+//                   const isInvalid =
+//                     field.state.meta.isTouched && !field.state.meta.isValid;
+
+//                   return (
+//                     <Field data-invalid={isInvalid}>
+
+//                       <div className="mb-2 flex items-center">
+
+//                         <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+
+//                         <Link
+//                           href="/forgot-password"
+//                           className="ml-auto text-sm underline-offset-2 hover:underline"
+//                         >
+//                           Forgot your password?
+//                         </Link>
+//                       </div>
+//                       <div className="relative">
+//                         <Input
+//                           id={field.name}
+//                           name={field.name}
+//                           type={showPassword ? "text" : "password"}
+//                           onChange={(e) => field.handleChange(e.target.value)}
+//                           onBlur={field.handleBlur}
+//                           value={field.state.value}
+//                           autoComplete="off"
+//                           aria-invalid={isInvalid}
+//                         />
+//                         <button
+//                           className="absolute right-3 top-1/2 -translate-y-1/2"
+//                           type="button"
+//                           onClick={() => setShowPassword((prev) => !prev)}
+//                         >
+//                           {showPassword ? (
+//                             <EyeClosed className="size-4" />
+//                           ) : (
+//                             <Eye className="size-4" />
+//                           )}
+//                         </button>
+//                       </div>
+//                       {isInvalid && <FieldError errors={field.state.meta.errors} />}
+//                     </Field>
+//                   );
+//                 }}
+//               </form.Field>
+
+//               <Button disabled={loginPending} type="submit">
+//                 {loginPending ? (
+//                   <>
+//                     <Spinner /> Submitting
+//                   </>
+//                 ) : (
+//                   "Submit"
+//                 )}
+//               </Button>
+
+//               {/* Separator */}
+//               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
+//                 Or continue with
+//               </FieldSeparator>
+
+//               {/* Google Login */}
+//               <GoogleLoginComponent />
+
+//               {/* Register Link */}
+//               <FieldDescription className="text-center">
+//                 Don&apos;t have an account?{" "}
+//                 <Link
+//                   href="/register"
+//                   className="underline-offset-2 hover:underline"
+//                 >
+//                   Sign up
+//                 </Link>
+//               </FieldDescription>
+
+//             </FieldGroup>
+
+//           </form>
+
+//           {/* Login Image */}
+//           <div className="relative hidden bg-muted md:block">
+//             <Image
+//               width={700}
+//               height={700}
+//               src="/images/login-image.jpg"
+//               alt="Login Image"
+//               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+//             />
+//           </div>
+//         </CardContent>
+//       </Card>
+
+//       {/* Terms */}
+//       <FieldDescription className="px-6 text-center">
+//         By clicking continue, you agree to our{" "}
+//         <Link
+//           href="/terms"
+//           className="underline-offset-2 hover:underline"
+//         >
+//           Terms of Service
+//         </Link>{" "}
+//         and{" "}
+//         <Link
+//           href="/privacy-policy"
+//           className="underline-offset-2 hover:underline"
+//         >
+//           Privacy Policy
+//         </Link>
+//         .
+//       </FieldDescription>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 "use client";
 
 import { useState } from "react";
@@ -519,6 +816,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeClosed } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import GoogleLoginComponent from "../google-login/GoogleLogin";
+import DemoLogin from "@/components/auth/demo-login";
 
 
 export function LoginForm() {
@@ -668,6 +966,15 @@ export function LoginForm() {
                 }}
               </form.Field>
 
+              {/* Demo Login — Top Right */}
+              <div className="absolute right-4 top-4 z-50 sm:right-6 sm:top-6">
+                <DemoLogin
+                  onFillCredentials={({ email, password }) => {
+                    form.setFieldValue("email", email);
+                    form.setFieldValue("password", password);
+                  }}
+                />
+              </div>
               <Button disabled={loginPending} type="submit">
                 {loginPending ? (
                   <>
@@ -735,10 +1042,4 @@ export function LoginForm() {
     </div>
   );
 }
-
-
-
-
-
-
 
