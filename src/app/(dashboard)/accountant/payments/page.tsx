@@ -318,20 +318,10 @@ export default function Payments() {
 
     return (
         <div className="min-h-screen bg-background text-foreground">
-            <div className="mx-auto w-full max-w-[1600px] space-y-6 p-4 sm:p-6 lg:p-8">
+            <div className="mx-auto space-y-6 p-3">
                 {/* Page heading */}
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
-                            <Link
-                                href="/accountant"
-                                className="transition-colors hover:text-primary"
-                            >
-                                Accountant
-                            </Link>
-                            <span>/</span>
-                            <span className="text-foreground">Payments</span>
-                        </div>
 
                         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
                             Payments Management
@@ -511,7 +501,7 @@ export default function Payments() {
 
                     {/* Table */}
                     <div className="overflow-x-auto">
-                        <table className="w-full min-w-[1050px] text-left text-sm">
+                        <table className="w-full min-w-[1000px] 2xl:min-w-0 table-fixed text-left text-sm">
                             <thead className="border-y bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
                                 <tr>
                                     <th className="px-5 py-4 font-semibold">Student</th>
