@@ -15,6 +15,7 @@ import UpcomingEvents from '@/components/modules/home/upcoming-events'
 import WhyChooseUs from '@/components/modules/home/why-choose-us'
 
 import React from 'react'
+import CampusFlowProjectDialog from '../../components/projects/CampusFlowProjectDialog'
 
 export default function HomePage() {
   return (
@@ -24,18 +25,18 @@ export default function HomePage() {
         autoPlay
         interval={5000}
       />
-      <AboutUniversity/>
-      <QuickStats/>
-      <AcademicProgramsHighlight/>
-      <FacultiesDepartmentsOverview/>
-      <WhyChooseUs/>
-      <AdmissionsHowToApply/>
-      <CampusLife/>
-      <UpcomingEvents events={events}/>
-      <Testimonials/>
-      <NewsBlogPreview/>
-      <ContactLocation/>
-
+      <AboutUniversity />
+      <QuickStats />
+      <AcademicProgramsHighlight />
+      <FacultiesDepartmentsOverview />
+      <WhyChooseUs />
+      <AdmissionsHowToApply />
+      <CampusLife />
+      <UpcomingEvents events={events} />
+      <Testimonials />
+      <NewsBlogPreview />
+      <ContactLocation />
+      <CampusFlowProjectDialog />
     </div>
   )
 }
