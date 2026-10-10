@@ -373,8 +373,8 @@ export default function Receipts() {
     };
 
     return (
-        <main className="min-h-screen bg-background text-foreground">
-            <div className="mx-auto max-w-[1600px] space-y-7 p-4 sm:p-6 lg:p-8">
+        <main className="min-h-screen w-full min-w-0 overflow-x-clip bg-background text-foreground">
+            <div className="mx-auto space-y-7 p-3">
                 {/* Header */}
                 <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                     <div>
