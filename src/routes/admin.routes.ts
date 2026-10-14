@@ -171,6 +171,9 @@ export const adminRoutes = [
     title: "Reports",
     url: "/admin/reports",
     icon: BarChart3,
+    items: [
+      { title: "Reports", url: "/admin/reports" },
+    ],
   },
 
   {
