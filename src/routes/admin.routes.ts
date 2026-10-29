@@ -172,7 +172,13 @@ export const adminRoutes = [
     url: "/admin/reports",
     icon: BarChart3,
     items: [
-      { title: "Reports", url: "/admin/reports" },
+      { title: "Overview", url: "/admin/reports" },
+      { title: "Academic Reports", url: "/admin/reports/academic" },
+      { title: "Enrollment Reports", url: "/admin/reports/enrollment" },
+      { title: "Attendance Reports", url: "/admin/reports/attendance" },
+      { title: "Financial Reports", url: "/admin/reports/financial" },
+      { title: "Course Reports", url: "/admin/reports/courses" },
+      { title: "Instructor Reports", url: "/admin/reports/instructors" },
     ],
   },
 
