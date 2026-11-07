@@ -266,10 +266,6 @@ export const departmentHeadRoutes = [
         title: "Schedule Changes",
         url: "/department-head/approvals/schedules",
       },
-      {
-        title: "Faculty Requests",
-        url: "/department-head/approvals/faculty",
-      },
     ],
   },
 
